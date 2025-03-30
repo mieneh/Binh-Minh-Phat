@@ -1,17 +1,27 @@
+import { getAccessToken } from '@/utils/token';
+import { getDefaultLocale } from '@/i18n';
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 type FetchOptions = Omit<RequestInit, 'headers'> & {
   headers?: Record<string, string>;
-  auth?: boolean; 
+  auth?: boolean;
 };
-
-import { getAccessToken } from '@/utils/token';
 
 export async function apiRequest<T = unknown>(path: string, options: FetchOptions = {}): Promise<T> {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(options.headers || {}),
   };
+
+  let locale = getDefaultLocale();
+  if (typeof window !== 'undefined') {
+    const seg = window.location.pathname.split('/')[1];
+    if (seg === 'vi' || seg === 'en') {
+      locale = seg;
+    }
+  }
+  headers['Accept-Language'] = locale;
 
   if (options.auth) {
     const token = getAccessToken();
