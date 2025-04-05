@@ -26,7 +26,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-50 bg-white border-r h-full px-2 py-2 sticky top-16">
+    <aside className="w-50 bg-white border-r h-full px-2 sticky top-16">
       <ul className="flex flex-col gap-1 mt-2">
         {user?.role == "admin" && (
           <>

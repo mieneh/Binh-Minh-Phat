@@ -24,10 +24,10 @@ export default function Navbar() {
     { name: '', label: t(locale, 'home') },
     { name: 'about', label: t(locale, 'about') },
     { name: 'services', label: t(locale, 'services') },
-    { name: 'product', label: t(locale, 'products') },
+    { name: 'products', label: t(locale, 'products') },
     { name: 'capabilities', label: t(locale, 'capabilities') },
     { name: 'partners', label: t(locale, 'partners') },
-    { name: 'careers', label: t(locale, 'careers') },
+    { name: 'careers', label: 'Careers' },
     { name: 'contact', label: t(locale, 'contact') },
   ];
 

@@ -34,9 +34,20 @@ export async function apiRequest<T = unknown>(path: string, options: FetchOption
     credentials: 'include',
   });
 
-  if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    throw new Error(text || `Request failed: ${res.status}`);
+  let data: any = null;
+
+  try {
+    data = await res.json();
+  } catch {
   }
-  return res.json();
+
+  if (!res.ok) {
+    let message: string = (Array.isArray(data?.message) ? data.message[0] : data?.message) || data?.error;
+    const error: any = new Error(message);
+    error.status = res.status;
+    error.data = data;
+    throw error;
+  }
+
+  return data as T;
 }

@@ -1,0 +1,8 @@
+{
+    "createSuccess": "Tạo danh mục thành công",
+    "updateSuccess": "Cập nhật danh mục thành công",
+    "deleteSuccess": "Xóa danh mục thành công",
+    "notFound": "Không tìm thấy danh mục",
+    "duplicateName": "Tên danh mục đã tồn tại",
+    "inUse": "Danh mục đang được sử dụng bởi sản phẩm, không thể xóa"
+}

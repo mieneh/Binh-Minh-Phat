@@ -1,0 +1,7 @@
+{
+  "createSuccess": "Product created successfully",
+  "updateSuccess": "Product updated successfully",
+  "deleteSuccess": "Product deleted successfully",
+  "notFound": "Product not found",
+  "duplicateLot": "Product lot already exists"
+}

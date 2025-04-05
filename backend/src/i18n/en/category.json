@@ -1,0 +1,8 @@
+{
+    "createSuccess": "Category created successfully",
+    "updateSuccess": "Category updated successfully",
+    "deleteSuccess": "Category deleted successfully",
+    "notFound": "Category not found",
+    "duplicateName": "Category name already exists",
+    "inUse": "Category is in use by products and cannot be deleted"
+}

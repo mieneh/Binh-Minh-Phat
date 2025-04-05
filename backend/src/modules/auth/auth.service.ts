@@ -15,10 +15,9 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 
 @Injectable()
 export class AuthService implements OnModuleInit {
-  private readonly logger = new Logger(AuthService.name);
-
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    @InjectModel(User.name) 
+    private readonly userModel: Model<UserDocument>,
     private readonly i18n: I18nService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,

@@ -1,0 +1,7 @@
+{
+  "createSuccess": "Tạo sản phẩm thành công",
+  "updateSuccess": "Cập nhật sản phẩm thành công",
+  "deleteSuccess": "Xóa sản phẩm thành công",
+  "notFound": "Không tìm thấy sản phẩm",
+  "duplicateLot": "Mã đơn hàng đã tồn tại"
+}

@@ -1,0 +1,9 @@
+{
+  "createSuccess": "Partner added successfully",
+  "updateSuccess": "Partner information updated successfully",
+  "deleteSuccess": "Partner deleted successfully",
+  "notFound": "Partner not found",
+  "duplicateName": "Partner name already exists",
+  "inUse": "Partner is in use and cannot be deleted",
+  "invalidWebsite": "Invalid website URL"
+}

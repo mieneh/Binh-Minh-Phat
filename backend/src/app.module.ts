@@ -9,6 +9,9 @@ import {
 import { AuthModule } from './modules/auth/auth.module';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import { PartnersModule } from './modules/partners/partners.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { ProductsModule } from './modules/products/products.module';
 
 const i18nPath = existsSync(join(__dirname, 'i18n'))
   ? join(__dirname, 'i18n')
@@ -37,6 +40,9 @@ const i18nPath = existsSync(join(__dirname, 'i18n'))
     }),
 
     AuthModule,
+    ProductsModule,
+    CategoriesModule,
+    PartnersModule,
   ],
 })
 export class AppModule {}
