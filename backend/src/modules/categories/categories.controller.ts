@@ -18,10 +18,7 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  async create(
-    @Body() dto: CreateCategoryDto,
-    @I18n() i18n: I18nContext,
-  ) {
+  async create(@Body() dto: CreateCategoryDto, @I18n() i18n: I18nContext) {
     const data = await this.categoriesService.create(dto);
     return {
       status: 201,

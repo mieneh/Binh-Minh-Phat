@@ -1,0 +1,8 @@
+{
+    "createSuccess": "Tạo bộ phận thành công",
+    "updateSuccess": "Cập nhật bộ phận thành công",
+    "deleteSuccess": "Xóa bộ phận thành công",
+    "duplicateName": "Tên bộ phận đã tồn tại",
+    "notFound": "Không tìm thấy bộ phận",
+    "inUse": "Bộ phận đang được sử dụng"
+}

@@ -1,0 +1,10 @@
+{
+  "createSuccess": "Recruitment created successfully",
+  "updateSuccess": "Recruitment updated successfully",
+  "closeSuccess": "Recruitment closed successfully",
+  "deleteSuccess": "Recruitment deleted successfully",
+  "positionNotFound": "Position not found",
+  "invalidDate": "Invalid date",
+  "notFound": "Recruitment not found",
+  "inUse": "Recruitment has candidates and cannot be deleted"
+}

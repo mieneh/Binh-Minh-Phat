@@ -1,0 +1,8 @@
+{
+    "createSucces": "Department created successfully.",
+    "updateSuccess": "Department updated successfully.",
+    "deleteSuccess": "Department deleted successfully.",
+    "duplicateName": "Department name already exists.",
+    "notFound": "Department not found.",
+    "inUse": "Department is currently in use and cannot be deleted."
+}

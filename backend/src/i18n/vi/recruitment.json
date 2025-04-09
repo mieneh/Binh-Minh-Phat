@@ -1,0 +1,10 @@
+{
+  "createSuccess": "Tạo đợt tuyển dụng thành công",
+  "updateSuccess": "Cập nhật đợt tuyển dụng thành công",
+  "closeSuccess": "Đóng đợt tuyển dụng thành công",
+  "deleteSuccess": "Xóa đợt tuyển dụng thành công",
+  "positionNotFound": "Vị trí tuyển dụng không tồn tại",
+  "invalidDate": "Ngày không hợp lệ",
+  "notFound": "Không tìm thấy đợt tuyển dụng",
+  "inUse": "Đợt tuyển đã có ứng viên, không thể xoá"
+}

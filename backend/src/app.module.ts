@@ -12,6 +12,9 @@ import { existsSync } from 'fs';
 import { PartnersModule } from './modules/partners/partners.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ProductsModule } from './modules/products/products.module';
+import { DepartmentsModule } from './modules/departments/departments.module';
+import { PositionsModule } from './modules/positions/positions.module';
+import { RecruitmentModule } from './modules/recruitments/recruitment.module';
 
 const i18nPath = existsSync(join(__dirname, 'i18n'))
   ? join(__dirname, 'i18n')
@@ -43,6 +46,9 @@ const i18nPath = existsSync(join(__dirname, 'i18n'))
     ProductsModule,
     CategoriesModule,
     PartnersModule,
+    DepartmentsModule,
+    PositionsModule,
+    RecruitmentModule,
   ],
 })
 export class AppModule {}

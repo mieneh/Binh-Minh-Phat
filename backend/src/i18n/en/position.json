@@ -1,0 +1,8 @@
+{
+    "createSuccess": "Position created successfully",
+    "updateSuccess": "Position updated successfully",
+    "deleteSuccess": "Position deleted successfully",
+    "duplicateCode": "Position code already exists",
+    "notFound": "Position not found",
+    "inUse": "Position is currently in use and cannot be deleted"
+}
