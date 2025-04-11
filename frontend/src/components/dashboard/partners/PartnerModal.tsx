@@ -19,6 +19,7 @@ interface PartnerModalProps {
     email: string;
     hotline: string;
     note: string;
+    removeLogo?: boolean;
   };
   partner?: Partner;
   submitting: boolean;
@@ -32,6 +33,7 @@ interface PartnerModalProps {
     email: string;
     hotline: string;
     note: string;
+    removeLogo?: boolean;
   }) => Promise<void> | void;
   onSwitchToEdit?: () => void;
 }

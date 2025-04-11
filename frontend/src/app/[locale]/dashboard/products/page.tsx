@@ -80,15 +80,17 @@ export default function ProductsPage() {
     quantity: number;
     categoryId: string;
     partnerId: string;
+    removeImage?: boolean;
   }) => {
         const payload = {
           lot: values.lot.trim(),
           name: values.name.trim(),
           description: values.description.trim() || undefined,
-          image: values.image.trim() || undefined,
+          image: values.image || undefined,
           quantity: values.quantity || 0,
           categoryId: values.categoryId || undefined,
-          partnerId: values.partnerId || undefined
+          partnerId: values.partnerId || undefined,
+          removeImage: values.removeImage || true
         };
     
         try {

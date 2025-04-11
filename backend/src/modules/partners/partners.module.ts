@@ -5,12 +5,15 @@ import { Product, ProductSchema } from 'src/schemas/product.schema';
 import { PartnersService } from './partners.service';
 import { PartnersController } from './partners.controller';
 
+import { CloudinaryModule } from '../../common/cloudinary/cloudinary.module';
+
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Partner.name, schema: PartnerSchema },
       { name: Product.name, schema: ProductSchema }
     ]),
+    CloudinaryModule,
   ],
   controllers: [PartnersController],
   providers: [PartnersService],

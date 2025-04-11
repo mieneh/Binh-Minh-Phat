@@ -73,6 +73,7 @@ export const productService = {
             quantity?: number;
             categoryId?: string;
             partnerId?: string;
+            removeImage?: boolean;
         },
     ): Promise<ProductMutationResponse> {
         const res = await apiRequest<ProductMutationResponse>(`/products/${id}`, {

@@ -76,6 +76,7 @@ export const partnerService = {
       address?: string;
       contact?: PartnerContact;
       note?: string;
+      removeLogo?: boolean;
     },
   ): Promise<PartnerMutationResponse> {
     const res = await apiRequest<PartnerMutationResponse>(`/partners/${id}`, {

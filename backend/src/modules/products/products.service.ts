@@ -10,12 +10,15 @@ import { Product, ProductDocument } from 'src/schemas/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
+import { CloudinaryService } from 'src/common/cloudinary/cloudinary.service';
+
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectModel(Product.name)
     private readonly productModel: Model<ProductDocument>,
     private readonly i18n: I18nService,
+    private readonly cloudinary: CloudinaryService,
   ) {}
 
   async create(dto: CreateProductDto) {
@@ -25,7 +28,18 @@ export class ProductsService {
         this.i18n.translate('product.duplicateLot'),
       );
     }
-    const product = await this.productModel.create(dto);
+    let image = '';
+    let imagePublicId = '';
+    if (dto.image) {
+      const uploaded = await this.cloudinary.uploadImage(dto.image, 'products');
+      image = uploaded.url;
+      imagePublicId = uploaded.publicId;
+    }
+    const product = await this.productModel.create({
+      ...dto,
+      image,
+      imagePublicId,
+    });
     return product;
   }
 
@@ -63,8 +77,31 @@ export class ProductsService {
         );
       }
     }
+    const updateData: any = {
+      lot: dto.lot ?? product.lot,
+      name: dto.name ?? product.name,
+      description: dto.description ?? product.description,
+      quantity: dto.quantity ?? product.quantity,
+      categoryId: dto.categoryId ?? product.categoryId,
+      partnerId: dto.partnerId ?? product.partnerId,
+    };
+    if (dto.removeImage === true) {
+      if (product.imagePublicId) {
+        await this.cloudinary.deleteImage(product.imagePublicId);
+      }
+      updateData.image = '';
+      updateData.imagePublicId = '';
+    }
+    if (dto.image && dto.image.startsWith('data:image/')) {
+      if (product.imagePublicId) {
+        await this.cloudinary.deleteImage(product.imagePublicId);
+      }
+      const uploaded = await this.cloudinary.uploadImage(dto.image, 'products');
+      updateData.image = uploaded.url;
+      updateData.imagePublicId = uploaded.publicId;
+    }
     const updated = await this.productModel
-      .findByIdAndUpdate(id, dto, { new: true })
+      .findByIdAndUpdate(id, updateData, { new: true })
       .populate('categoryId')
       .populate('partnerId')
       .exec();
@@ -76,6 +113,7 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException(this.i18n.translate('product.notFound'));
     }
+    await this.cloudinary.deleteImage(product.imagePublicId);
     return true;
   }
 }

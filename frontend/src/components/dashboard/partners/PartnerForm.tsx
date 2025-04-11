@@ -2,6 +2,7 @@
 
 import { useEffect, useState, FormEvent } from 'react';
 import { t } from '@/i18n';
+import imageCompression from 'browser-image-compression';
 import { Plus, Upload } from 'lucide-react';
 
 interface PartnerFormProps {
@@ -27,6 +28,7 @@ interface PartnerFormProps {
     email: string;
     hotline: string;
     note: string;
+    removeLogo?: boolean;
   }) => Promise<void> | void;
   onCancel: () => void;
 }
@@ -40,7 +42,7 @@ export default function PartnerForm({
   onCancel,
 }: PartnerFormProps) {
   const [name, setName] = useState('');
-  const [logo, setLogo] = useState('');
+  const [logo, setLogo] = useState<string | null>(null);
   const [website, setWebsite] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
@@ -50,15 +52,18 @@ export default function PartnerForm({
 
   const [original, setOriginal] = useState(initialValues);
 
+  const [removeLogo, setRemoveLogo] = useState(false);
+
   useEffect(() => {
     setName(initialValues?.name || '');
-    setLogo(initialValues?.logo || '');
+    setLogo(initialValues?.logo || null);
     setWebsite(initialValues?.website || '');
     setAddress(initialValues?.address || '');
     setPhone(initialValues?.phone || '');
     setEmail(initialValues?.email || '');
     setHotline(initialValues?.hotline || '');
     setNote(initialValues?.note || '');
+    setRemoveLogo(false);
     setOriginal(initialValues);
   }, [initialValues]);
 
@@ -66,18 +71,34 @@ export default function PartnerForm({
     ? true
     : !!original &&
       (name.trim() !== (original.name || '').trim() ||
-      (logo || '').trim() !== (original.logo || '').trim() ||
+      (logo && logo.startsWith('data:image/')) ||
       (website || '').trim() !== (original.website || '').trim() ||
       (address || '').trim() !== (original.address || '').trim() ||
       (phone || '').trim() !== (original.phone || '').trim() ||
       (email || '').trim() !== (original.email || '').trim() ||
       (hotline || '').trim() !== (original.hotline || '').trim() ||
-      (note || '').trim() !== (original.note || '').trim());
+      (note || '').trim() !== (original.note || '').trim()) ||
+      removeLogo === true
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    await onSubmit({ name, logo, website, address, phone, email, hotline, note });
+    const payload: any = {
+      name,
+      website,
+      address,
+      phone,
+      email,
+      hotline,
+      note,
+    };
+    if (removeLogo) {
+      payload.removeLogo = true;
+    }
+    if (logo && logo.startsWith('data:image/')) {
+      payload.logo = logo;
+    }
+    await onSubmit(payload);
   };
 
   return (
@@ -95,20 +116,29 @@ export default function PartnerForm({
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onChange={(e) => {
+                    onChange={async (e) => {
                       const file = e.target.files?.[0];
-                      if (!file) return;  
+                      if (!file) return;
+                      const compressed = await imageCompression(file, {
+                        maxSizeMB: 0.2,
+                        maxWidthOrHeight: 1200,
+                        useWebWorker: true,
+                      });
                       const reader = new FileReader();
                       reader.onloadend = () => {
                         setLogo(reader.result as string);
+                        setRemoveLogo(false);
                       };
-                      reader.readAsDataURL(file);
+                      reader.readAsDataURL(compressed);
                     }}
                   />
                 </label>
                 <button
                   type="button"
-                  onClick={() => setLogo('')}
+                  onClick={() => {
+                    setLogo(null);
+                    setRemoveLogo(true);
+                  }}
                   className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-xs font-medium shadow hover:bg-white"
                 >
                   ✕
@@ -127,6 +157,7 @@ export default function PartnerForm({
                     const reader = new FileReader();
                     reader.onloadend = () => {
                       setLogo(reader.result as string);
+                      setRemoveLogo(false);
                     };
                     reader.readAsDataURL(file);
                   }}

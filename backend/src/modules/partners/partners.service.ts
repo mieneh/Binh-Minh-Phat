@@ -11,6 +11,8 @@ import { Product, ProductDocument } from 'src/schemas/product.schema';
 import { CreatePartnerDto } from './dto/create-partner.dto';
 import { UpdatePartnerDto } from './dto/update-partner.dto';
 
+import { CloudinaryService } from 'src/common/cloudinary/cloudinary.service';
+
 @Injectable()
 export class PartnersService {
   constructor(
@@ -19,6 +21,7 @@ export class PartnersService {
     @InjectModel(Product.name)
     private readonly productModel: Model<ProductDocument>,
     private readonly i18n: I18nService,
+    private readonly cloudinary: CloudinaryService,
   ) {}
 
   async create(dto: CreatePartnerDto) {
@@ -28,7 +31,18 @@ export class PartnersService {
         this.i18n.translate('partner.duplicateName'),
       );
     }
-    const partner = await this.partnerModel.create(dto);
+    let logo = '';
+    let logoPublicId = '';
+    if (dto.logo) {
+      const uploaded = await this.cloudinary.uploadImage(dto.logo, 'partners');
+      logo = uploaded.url;
+      logoPublicId = uploaded.publicId;
+    }
+    const partner = await this.partnerModel.create({
+      ...dto,
+      logo,
+      logoPublicId,
+    });
     return partner;
   }
 
@@ -57,8 +71,34 @@ export class PartnersService {
         );
       }
     }
+    const updateData: any = {
+      name: dto.name ?? partner.name,
+      website: dto.website ?? partner.website,
+      address: dto.address ?? partner.address,
+      contact:
+        dto.contact?.phone ??
+        (partner.contact?.phone || dto.contact?.email) ??
+        (partner.contact?.email || dto.contact?.hotline) ??
+        partner.contact?.hotline,
+      note: dto.note ?? partner.note,
+    };
+    if (dto.removeLogo === true) {
+      if (partner.logoPublicId) {
+        await this.cloudinary.deleteImage(partner.logoPublicId);
+      }
+      updateData.logo = '';
+      updateData.logoPublicId = '';
+    }
+    if (dto.logo && dto.logo.startsWith('data:image/')) {
+      if (partner.logoPublicId) {
+        await this.cloudinary.deleteImage(partner.logoPublicId);
+      }
+      const uploaded = await this.cloudinary.uploadImage(dto.logo, 'partners');
+      updateData.logo = uploaded.url;
+      updateData.logoPublicId = uploaded.publicId;
+    }
     const updated = await this.partnerModel
-      .findByIdAndUpdate(id, dto, { new: true })
+      .findByIdAndUpdate(id, updateData, { new: true })
       .exec();
     return updated;
   }

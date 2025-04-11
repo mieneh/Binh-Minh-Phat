@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { I18nValidationPipe, I18nValidationExceptionFilter } from 'nestjs-i18n';
 import * as dotenv from 'dotenv';
+import * as bodyParser from 'body-parser';
+
 dotenv.config();
 
 async function bootstrap() {
@@ -17,7 +19,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new I18nValidationPipe({
       stopAtFirstError: true,
-      whitelist: true,
+      // whitelist: true,
       transform: true,
     }),
   );
@@ -27,6 +29,9 @@ async function bootstrap() {
       detailedErrors: false,
     }),
   );
+
+  app.use(bodyParser.json({ limit: '2mb' }));
+  app.use(bodyParser.urlencoded({ limit: '2mb', extended: true }));
 
   // Config Swagger
   const config = new DocumentBuilder()

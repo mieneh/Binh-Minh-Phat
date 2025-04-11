@@ -13,6 +13,9 @@ export class Partner {
   logo?: string;
 
   @Prop()
+  logoPublicId?: string;
+
+  @Prop()
   website?: string;
 
   @Prop()

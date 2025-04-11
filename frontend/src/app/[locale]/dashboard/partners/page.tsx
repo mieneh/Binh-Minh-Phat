@@ -81,13 +81,15 @@ export default function PartnersPage() {
     email: string;
     hotline: string;
     note: string;
+    removeLogo?: boolean;
   }) => {
     const payload = {
       name: values.name.trim(),
-      logo: values.logo.trim() || undefined,
+      logo: values.logo || undefined,
       website: values.website.trim() || undefined,
       address: values.address.trim() || undefined,
       note: values.note.trim() || undefined,
+      removeLogo: values.removeLogo || true,
       contact:
         values.phone || values.email || values.hotline
           ? {

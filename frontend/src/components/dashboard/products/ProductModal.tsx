@@ -18,6 +18,7 @@ interface ProductModalProps {
     quantity: number;
     categoryId: string;
     partnerId: string;
+    removeImage?: boolean;
   };
   product?: Product;
   submitting: boolean;
@@ -30,6 +31,7 @@ interface ProductModalProps {
     quantity: number;
     categoryId: string;
     partnerId: string;
+    removeImage?: boolean;
   }) => Promise<void> | void;
   onSwitchToEdit?: () => void;
 }

@@ -18,6 +18,9 @@ export class Product {
   @Prop()
   image?: string;
 
+  @Prop()
+  imagePublicId?: string;
+
   @Prop({ required: true, type: Number, min: 0 })
   quantity?: number;
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, FormEvent } from 'react';
 import { t } from '@/i18n';
+import imageCompression from 'browser-image-compression';
 import { categoryService, Category } from '@/lib/services/category.service';
 import { partnerService, Partner } from '@/lib/services/partner.service';
 import { Plus, Upload } from 'lucide-react';
@@ -27,6 +28,7 @@ interface ProductFormProps {
     quantity: number;
     categoryId: string;
     partnerId: string;
+    removeImage?: boolean;
   }) => Promise<void> | void;
   onCancel: () => void;
 }
@@ -42,7 +44,7 @@ export default function ProductForm({
   const [lot, setLot] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(0);
   const [categoryId, setCategoryId] = useState('');
   const [partnerId, setPartnerId] = useState('');
@@ -52,11 +54,13 @@ export default function ProductForm({
   const [categories, setCategories] = useState<Category[]>([]);
   const [partners, setPartners] = useState<Partner[]>([]);
 
+  const [removeImage, setRemoveImage] = useState(false);
+
   useEffect(() => {
     setLot(initialValues?.lot || '');
     setName(initialValues?.name || '');
     setDescription(initialValues?.description || '');
-    setImage(initialValues?.image || '');
+    setImage(initialValues?.image || null);
     setQuantity(initialValues?.quantity || 0);
     setCategoryId(
       typeof initialValues?.categoryId === 'string'
@@ -68,6 +72,7 @@ export default function ProductForm({
         ? initialValues.partnerId
         : (initialValues?.partnerId as any)?._id || ''
     );
+    setRemoveImage(false);
     setOriginal(initialValues);
   }, [initialValues]);
 
@@ -81,16 +86,31 @@ export default function ProductForm({
     : !!original &&
       (lot.trim() !== (original.lot || '').trim() ||
       name.trim() !== (original.name || '').trim() ||
-      (image || '').trim() !== (original.image || '').trim() ||
+      (image && image.startsWith('data:image/')) ||
       (description || '').trim() !== (original.description || '').trim() ||
       (quantity || 0) !== (original.quantity || 0) ||
       (categoryId || '').trim() !== (original.categoryId || '').trim() ||
-      (partnerId || '').trim() !== (original.partnerId || '').trim())
+      (partnerId || '').trim() !== (original.partnerId || '').trim()) ||
+      removeImage === true
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!lot.trim() && !name.trim()) return;
-    await onSubmit({ lot, name, description, image, quantity, categoryId, partnerId });
+    const payload: any = {
+      lot,
+      name,
+      description,
+      quantity,
+      categoryId,
+      partnerId,
+    };
+    if (removeImage) {
+      payload.removeImage = true;
+    }
+    if (image && image.startsWith('data:image/')) {
+      payload.image = image;
+    }
+    await onSubmit(payload);
   };
 
   return (
@@ -108,20 +128,29 @@ export default function ProductForm({
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onChange={(e) => {
+                    onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (!file) return;
+                      const compressed = await imageCompression(file, {
+                        maxSizeMB: 0.2,
+                        maxWidthOrHeight: 1200,
+                        useWebWorker: true,
+                      });
                       const reader = new FileReader();
                       reader.onloadend = () => {
                         setImage(reader.result as string);
+                        setRemoveImage(false);
                       };
-                      reader.readAsDataURL(file);
+                      reader.readAsDataURL(compressed);
                     }}
                   />
                 </label>
                 <button
                   type="button"
-                  onClick={() => setImage('')}
+                  onClick={() => {
+                    setImage(null);
+                    setRemoveImage(true);
+                  }}
                   className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-xs font-medium shadow hover:bg-white"
                 >
                   ✕
@@ -140,6 +169,7 @@ export default function ProductForm({
                     const reader = new FileReader();
                     reader.onloadend = () => {
                       setImage(reader.result as string);
+                      setRemoveImage(false);
                     };
                     reader.readAsDataURL(file);
                   }}
