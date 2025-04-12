@@ -1,0 +1,11 @@
+{
+    "createSuccess": "Tạo người dùng thành công",
+    "updateSuccess": "Cập nhật người dùng thành công",
+    "deleteSuccess": "Xoá người dùng thành công",
+    "notFound": "Không tìm thấy người dùng",
+    "duplicateEmail": "Email đã tồn tại",
+    "invalidEmail": "Email không hợp lệ",
+    "invalidRole": "Role không hợp lệ",
+    "resetPasswordSuccess": "Reset mật khẩu thành công",
+    "onlyEmployeeReset": "Chỉ được reset mật khẩu cho nhân viên"
+}

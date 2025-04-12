@@ -2,20 +2,17 @@ import {
   IsBoolean,
   IsDateString,
   IsInt,
-  IsNotEmpty,
   IsMongoId,
   IsOptional,
-  IsString,
   Min,
 } from 'class-validator';
 
 export class CreateRecruitmentDto {
-  @IsNotEmpty()
   @IsMongoId()
   positionId: string;
 
-  @IsString()
-  address: string;
+  @IsMongoId()
+  addressId: string;
 
   @IsInt()
   @Min(1)

@@ -1,0 +1,8 @@
+{
+    "createSuccess": "Address created successfully",
+    "updateSuccess": "Address updated successfully",
+    "deleteSuccess": "Address deleted successfully",
+    "notFound": "Address not found",
+    "duplicateBranch": "Address name already exists",
+    "inUse": "Address is in use by recruitment and cannot be deleted"
+}

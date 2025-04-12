@@ -1,10 +1,11 @@
 import { apiRequest } from '@/lib/api';
 import { Position } from './position.service';
+import { Address } from './address.service';
 
 export interface Recruitment {
   _id: string;
   positionId: Position;
-  address: string;
+  addressId: Address;
   quantity: number;
   startDate: string;
   deadline: string;
@@ -54,7 +55,7 @@ export const recruitmentService = {
 
   async create(data: {
     positionId: string;
-    address: string;
+    addressId: string;
     quantity: number;
     startDate: string;
     deadline: string;
@@ -71,7 +72,7 @@ export const recruitmentService = {
     id: string,
     data: {
       positionId?: string;
-      address?: string;
+      addressId?: string;
       quantity?: number;
       startDate?: string;
       deadline?: string;

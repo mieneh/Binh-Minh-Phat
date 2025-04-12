@@ -13,7 +13,7 @@ export default function Sidebar() {
 
   const privateLinks = [
     { href: `/${locale}/dashboard/users`, label: t(locale, 'users') },
-    { href: `/${locale}/dashboard/companies`, label: t(locale, 'companies') },
+    { href: `/${locale}/dashboard/addresses`, label: t(locale, 'addresses') },
   ];
 
   const links = [

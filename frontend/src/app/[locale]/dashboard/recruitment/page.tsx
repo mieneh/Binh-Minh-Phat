@@ -122,10 +122,7 @@ export default function RecruitmentsPage() {
     try {
       setSavingDepartment(true);
       if (editingDepartment) {
-        const res = await departmentService.update(
-          editingDepartment._id,
-          payload
-        );
+        const res = await departmentService.update(editingDepartment._id,payload);
         toast.success(res.message);
       } else {
         const res = await departmentService.create(payload);
@@ -213,7 +210,7 @@ export default function RecruitmentsPage() {
     try {
       setSavingPosition(true);
       if (editingPosition) {
-        const res = await positionService.update(editingPosition.code, payload);
+        const res = await positionService.update(editingPosition._id, payload);
         toast.success(res.message);
       } else {
         const res = await positionService.create(payload);
@@ -238,7 +235,7 @@ export default function RecruitmentsPage() {
     if (!deletePositionTarget) return;
     try {
       setDeletingPosition(true);
-      const res = await positionService.remove(deletePositionTarget.code);
+      const res = await positionService.remove(deletePositionTarget._id);
       toast.success(res.message);
       await fetchData();
       setDeletePositionTarget(null);
@@ -287,7 +284,7 @@ export default function RecruitmentsPage() {
 
   const handleSaveRecruitment = async (values: {
     positionId : string;
-    address: string
+    addressId: string
     quantity: number;
     startDate: string
     deadline: string;
@@ -295,7 +292,7 @@ export default function RecruitmentsPage() {
   }) => {
     const payload = {
       positionId: values.positionId.trim(),
-      address: values.address,
+      addressId: values.addressId.trim(),
       quantity: values.quantity,
       startDate: values.startDate,
       deadline: values.deadline,
@@ -540,8 +537,11 @@ export default function RecruitmentsPage() {
                     positionId:
                       typeof editingRecruitment.positionId === "string"
                         ? editingRecruitment.positionId
-                        : editingRecruitment.positionId?.code || "",
-                    address: editingRecruitment.address.toString() || "",
+                        : editingRecruitment.positionId?._id || "",
+                    addressId: 
+                      typeof editingRecruitment.addressId === "string"
+                        ? editingRecruitment.addressId
+                        : editingRecruitment.addressId?._id || "",
                     quantity: editingRecruitment.quantity || 0,
                     startDate: editingRecruitment.startDate
                       ? new Date(editingRecruitment.startDate)

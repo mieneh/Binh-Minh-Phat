@@ -3,13 +3,14 @@
 import { useEffect, useState, FormEvent } from 'react';
 import { t } from '@/i18n';
 import { positionService, Position } from '@/lib/services/position.service';
+import { addressService, Address } from '@/lib/services/address.service';
 
 interface RecruitmentFormProps {
   locale: 'vi' | 'en';
   mode: 'create' | 'edit';
   initialValues?: {
     positionId: string;
-    address: string
+    addressId: string
     quantity: number;
     startDate: string;
     deadline: string;
@@ -18,7 +19,7 @@ interface RecruitmentFormProps {
   submitting: boolean;
   onSubmit: (values: {
     positionId: string;
-    address: string
+    addressId: string
     quantity: number;
     startDate: string;
     deadline: string;
@@ -36,7 +37,7 @@ export default function RecruitmentForm({
   onCancel,
 }: RecruitmentFormProps) {
   const [positionId, setPositionId] = useState('');
-  const [address, setAddress] = useState('');
+  const [addressId, setAddressId] = useState('');
   const [quantity, setQuantity] = useState<number>(1);
   const [startDate, setStartDate] = useState('');
   const [deadline, setDeadline] = useState('');
@@ -45,10 +46,11 @@ export default function RecruitmentForm({
   const [original, setOriginal] = useState(initialValues);
   
   const [positions, setPositions] = useState<Position[]>([]);
+  const [addresses, setAddresses] = useState<Address[]>([]);
 
   useEffect(() => {
     setPositionId(initialValues?.positionId || '');
-    setAddress(initialValues?.address || '');
+    setAddressId(initialValues?.addressId || '');
     setQuantity(initialValues?.quantity || 1);
     setStartDate(initialValues?.startDate.slice(0, 10) || '');
     setDeadline(initialValues?.deadline.slice(0, 10) || '');
@@ -58,13 +60,14 @@ export default function RecruitmentForm({
 
   useEffect(() => {
     positionService.getAll().then(res => setPositions(res.data || []));
+    addressService.getAll().then(res => setAddresses(res.data || []));
   }, []);
 
   const isDirty = mode === 'create'
     ? true
     : !!original &&
       (positionId !== (original.positionId || '') ||
-      address !== (original.address || '') ||
+      addressId !== (original.addressId || '') ||
       quantity !== (original.quantity || 0) ||
       startDate !== (original.startDate || '') ||
       deadline !== (original.deadline || '') ||
@@ -73,8 +76,8 @@ export default function RecruitmentForm({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!positionId && !address && !quantity && !startDate && !deadline) return;
-    await onSubmit({ positionId, address, quantity, startDate, deadline, experience: experience === 0 ? undefined : Number(experience) });
+    if (!positionId && !addressId && !quantity && !startDate && !deadline) return;
+    await onSubmit({ positionId, addressId, quantity, startDate, deadline, experience: experience === 0 ? undefined : Number(experience) });
   };
 
   return (
@@ -100,13 +103,17 @@ export default function RecruitmentForm({
         <label className="mt-1 text-sm font-medium">
           {t(locale, 'address')} <span className="text-red-500">*</span>
         </label>
-        <input
+        <select
           className="mt-1 w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-emerald-500"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder={t(locale, 'addressPlaceholder')}
+          value={addressId}
+          onChange={(e) => setAddressId(e.target.value)}
           required
-        />
+        >
+          <option value="">{t(locale, 'selectAddress')}</option>
+          {addresses.map((a) => (
+            <option key={a._id} value={a._id}>{a.branchName}</option>
+          ))}
+        </select>
       </div>
 
       <div>

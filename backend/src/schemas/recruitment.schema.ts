@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Position } from './position.schema';
+import { Address } from './address.schema';
 
 export type RecruitmentDocument = Recruitment & Document;
 
@@ -9,8 +10,8 @@ export class Recruitment {
   @Prop({ type: Types.ObjectId, ref: Position.name, required: true })
   positionId: Types.ObjectId;
 
-  @Prop({ required: true })
-  address: string;
+  @Prop({ type: Types.ObjectId, ref: Address.name, required: true })
+  addressId: Types.ObjectId;
 
   @Prop({ required: true, min: 1 })
   quantity: number;

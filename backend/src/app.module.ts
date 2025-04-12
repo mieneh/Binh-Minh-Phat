@@ -15,6 +15,8 @@ import { ProductsModule } from './modules/products/products.module';
 import { DepartmentsModule } from './modules/departments/departments.module';
 import { PositionsModule } from './modules/positions/positions.module';
 import { RecruitmentModule } from './modules/recruitments/recruitment.module';
+import { UsersModule } from './modules/users/users.module';
+import { AddressesModule } from './modules/addresses/addresses.module';
 
 import { CloudinaryProvider } from './common/cloudinary/cloudinary.provider';
 
@@ -51,6 +53,8 @@ const i18nPath = existsSync(join(__dirname, 'i18n'))
     DepartmentsModule,
     PositionsModule,
     RecruitmentModule,
+    UsersModule,
+    AddressesModule,
   ],
   providers: [CloudinaryProvider],
 })

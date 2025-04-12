@@ -1,0 +1,8 @@
+{
+    "createSuccess": "Tạo địa chỉ thành công",
+    "updateSuccess": "Cập nhật địa chỉ thành công",
+    "deleteSuccess": "Xoá địa chỉ thành công",
+    "notFound": "Không tìm thấy địa chỉ",
+    "duplicateBranch": "Tên chi nhánh đã tồn tại",
+    "inUse": "Chi nhánh đang được sử dụng"
+}

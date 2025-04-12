@@ -12,7 +12,7 @@ interface RecruitmentModalProps {
   submitting: boolean;
   initialValues?: {
     positionId: string;
-    address: string
+    addressId: string
     quantity: number;
     startDate: string
     deadline: string;
@@ -22,7 +22,7 @@ interface RecruitmentModalProps {
   onClose: () => void;
   onSubmit: (values: {
     positionId: string;
-    address: string
+    addressId: string
     quantity: number;
     startDate: string
     deadline: string;
@@ -79,7 +79,7 @@ export default function RecruitmentModal({
 
           <div>
             <div className="text-xs uppercase text-gray-400">{t(locale, 'address')}</div>
-            <div className="mt-1 text-sm">{recruitment.address || '—'}</div>
+            <div className="mt-1 text-sm">{recruitment.addressId ? `${recruitment.addressId.branchName} (${recruitment.addressId.location.street}, ${recruitment.addressId.location.ward}, ${recruitment.addressId.location.province})` : '—'}</div>
           </div>
 
           <div>

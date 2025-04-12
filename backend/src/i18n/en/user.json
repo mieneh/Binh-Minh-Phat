@@ -1,0 +1,11 @@
+{
+  "createSuccess": "User created successfully",
+  "updateSuccess": "User updated successfully",
+  "deleteSuccess": "User deleted successfully",
+  "notFound": "User not found",
+  "duplicateEmail": "Email already exists",
+  "invalidEmail": "Invalid email address",
+  "invalidRole": "Invalid role",
+  "resetPasswordSuccess": "Password reset successfully",
+  "onlyEmployeeReset": "Only employee accounts can have their password reset"
+}

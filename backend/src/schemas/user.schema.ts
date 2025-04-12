@@ -21,7 +21,21 @@ export class User {
   avatar?: string;
 
   @Prop()
-  address?: string;
+  avatarPublicId?: string;
+
+  @Prop({
+    type: {
+      province: { type: String },
+      ward: { type: String },
+      street: { type: String },
+    },
+  })
+  address?: {
+    province?: string;
+    ward?: string;
+    street?: string;
+  };
+
 
   @Prop({ type: [String], default: [] })
   usedRefreshTokens: string[];

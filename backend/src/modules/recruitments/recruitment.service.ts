@@ -11,6 +11,7 @@ import {
   RecruitmentDocument,
 } from 'src/schemas/recruitment.schema';
 import { Position, PositionDocument } from 'src/schemas/position.schema';
+import { Address, AddressDocument } from 'src/schemas/address.schema';
 import { Applicant, ApplicantDocument } from 'src/schemas/applicant.schema';
 import { CreateRecruitmentDto } from './dto/create-recruitment.dto';
 import { UpdateRecruitmentDto } from './dto/update-recruitment.dto';
@@ -22,6 +23,8 @@ export class RecruitmentService {
     private readonly recruitmentModel: Model<RecruitmentDocument>,
     @InjectModel(Position.name)
     private readonly positionModel: Model<PositionDocument>,
+    @InjectModel(Address.name)
+    private readonly addressModel: Model<AddressDocument>,
     @InjectModel(Applicant.name)
     private readonly applicantModel: Model<ApplicantDocument>,
     private readonly i18n: I18nService,
@@ -55,6 +58,7 @@ export class RecruitmentService {
     return this.recruitmentModel
       .find()
       .populate('positionId')
+      .populate('addressId')
       .sort({ createdAt: -1 })
       .exec();
   }
@@ -66,6 +70,7 @@ export class RecruitmentService {
         deadline: { $gte: new Date() },
       })
       .populate('positionId')
+      .populate('addressId')
       .sort({ deadline: 1 })
       .exec();
   }
@@ -74,6 +79,7 @@ export class RecruitmentService {
     const found = await this.recruitmentModel
       .findById(id)
       .populate('positionId')
+      .populate('addressId')
       .exec();
     if (!found) {
       throw new NotFoundException(this.i18n.translate('recruitment.notFound'));
@@ -129,7 +135,7 @@ export class RecruitmentService {
       throw new NotFoundException(this.i18n.translate('recruitment.notFound'));
     }
     const usingApplicant = await this.applicantModel
-      .findOne({ recruitmentID: id })
+      .findOne({ recruitmentId: id })
       .select('_id fullName')
       .exec();
     if (usingApplicant) {

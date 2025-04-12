@@ -14,7 +14,7 @@ export enum ApplicantStatus {
 @Schema({ timestamps: true })
 export class Applicant {
   @Prop({ type: Types.ObjectId, ref: Recruitment.name, required: true })
-  recruitmentID: Types.ObjectId;
+  recruitmentId: Types.ObjectId;
 
   @Prop({ required: true })
   fullName: string;
@@ -25,8 +25,19 @@ export class Applicant {
   @Prop({ required: true })
   phone: string;
 
-  @Prop()
-  address?: string;
+  @Prop({
+    type: {
+      province: { type: String, required: true },
+      ward: { type: String, required: true },
+      street: { type: String, required: true },
+    },
+    required: true,
+  })
+  address?: {
+    province?: string;
+    ward?: string;
+    street?: string;
+  };
 
   @Prop({ default: 0 })
   yearsOfExperience: number;
