@@ -1,8 +1,8 @@
 {
-    "createSuccess": "Tạo bộ phận thành công",
-    "updateSuccess": "Cập nhật bộ phận thành công",
-    "deleteSuccess": "Xóa bộ phận thành công",
-    "duplicateName": "Tên bộ phận đã tồn tại",
-    "notFound": "Không tìm thấy bộ phận",
-    "inUse": "Bộ phận đang được sử dụng"
+    "createSuccess": "Tạo phòng ban thành công",
+    "updateSuccess": "Cập nhật phòng ban thành công",
+    "deleteSuccess": "Xóa phòng ban thành công",
+    "duplicateName": "Tên phòng ban đã tồn tại",
+    "notFound": "Không tìm thấy phòng ban",
+    "inUse": "Phòng ban đang được sử dụng"
 }

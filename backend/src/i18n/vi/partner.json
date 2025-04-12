@@ -4,6 +4,6 @@
   "deleteSuccess": "Xóa đối tác thành công",
   "notFound": "Không tìm thấy đối tác",
   "duplicateName": "Tên đối tác đã tồn tại",
-  "inUse": "Đối tác đang được sử dụng và không thể xóa",
+  "inUse": "Đối tác đang được sử dụng",
   "invalidWebsite": "Địa chỉ website không hợp lệ"
 }

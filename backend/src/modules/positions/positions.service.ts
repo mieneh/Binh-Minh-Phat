@@ -43,9 +43,9 @@ export class PositionsService {
       .exec();
   }
 
-  async findOne(code: string) {
+  async findOne(id: string) {
     const found = await this.positionModel
-      .findOne({ code })
+      .findOne({ id })
       .populate('departmentId')
       .exec();
     if (!found) {
@@ -54,8 +54,8 @@ export class PositionsService {
     return found;
   }
 
-  async update(code: string, dto: UpdatePositionDto) {
-    const position = await this.positionModel.findOne({ code }).exec();
+  async update(id: string, dto: UpdatePositionDto) {
+    const position = await this.positionModel.findById(id).exec();
     if (!position) {
       throw new NotFoundException(this.i18n.translate('position.notFound'));
     }
@@ -70,24 +70,27 @@ export class PositionsService {
       }
     }
     const updated = await this.positionModel
-      .findOneAndUpdate({ code }, dto, { new: true })
+      .findByIdAndUpdate(id, dto, { new: true })
       .exec();
     return updated;
   }
 
-  async remove(code: string) {
-    const position = await this.positionModel.findOne({ code }).exec();
+  async remove(id: string) {
+    const position = await this.positionModel.findById(id).exec();
     if (!position) {
       throw new NotFoundException(this.i18n.translate('position.notFound'));
     }
     const usingRecruitment = await this.recruitmentModel
-      .findOne({ positionCode: code })
-      .select('_id title')
+      .findOne({
+        positionId: id,
+        isActive: true,
+      })
+      .select('_id')
       .exec();
     if (usingRecruitment) {
       throw new BadRequestException(this.i18n.translate('position.inUse'));
     }
-    await this.positionModel.findOneAndDelete({ code }).exec();
+    await this.positionModel.findByIdAndDelete(id).exec();
     return true;
   }
 }

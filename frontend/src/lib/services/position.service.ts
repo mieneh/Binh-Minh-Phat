@@ -36,8 +36,8 @@ export const positionService = {
     });
   },
 
-  async getOne(code: string): Promise<PositionDetailResponse> {
-    return apiRequest(`/positions/${code}`, {
+  async getOne(id: string): Promise<PositionDetailResponse> {
+    return apiRequest(`/positions/${id}`, {
       method: 'GET',
       auth: true,
     });
@@ -58,7 +58,7 @@ export const positionService = {
   },
 
   async update(
-    code: string,
+    id: string,
     data: {
       code?: string;
       name?: string;
@@ -67,15 +67,15 @@ export const positionService = {
       requirement?: string;
     },
   ): Promise<PositionMutationResponse> {
-    return apiRequest(`/positions/${code}`, {
+    return apiRequest(`/positions/${id}`, {
       method: 'PATCH',
       body: JSON.stringify(data),
       auth: true,
     });
   },
 
-  async remove(code: string): Promise<{ status: number; message?: string }> {
-    return apiRequest(`/positions/${code}`, {
+  async remove(id: string): Promise<{ status: number; message?: string }> {
+    return apiRequest(`/positions/${id}`, {
       method: 'DELETE',
       auth: true,
     });

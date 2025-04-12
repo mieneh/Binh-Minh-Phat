@@ -34,18 +34,18 @@ export class PositionsController {
   }
 
   @Get(':code')
-  async findOne(@Param('code') code: string) {
-    const data = await this.positionsService.findOne(code);
+  async findOne(@Param('id') id: string) {
+    const data = await this.positionsService.findOne(id);
     return { status: 200, data };
   }
 
-  @Patch(':code')
+  @Patch(':id')
   async update(
-    @Param('code') code: string,
+    @Param('id') id: string,
     @Body() dto: UpdatePositionDto,
     @I18n() i18n: I18nContext,
   ) {
-    const data = await this.positionsService.update(code, dto);
+    const data = await this.positionsService.update(id, dto);
     return {
       status: 200,
       message: i18n.translate('position.updateSuccess'),
@@ -53,10 +53,10 @@ export class PositionsController {
     };
   }
 
-  @Delete(':code')
+  @Delete(':id')
   @HttpCode(200)
-  async remove(@Param('code') code: string, @I18n() i18n: I18nContext) {
-    await this.positionsService.remove(code);
+  async remove(@Param('id') id: string, @I18n() i18n: I18nContext) {
+    await this.positionsService.remove(id);
     return {
       status: 200,
       message: i18n.translate('position.deleteSuccess'),
