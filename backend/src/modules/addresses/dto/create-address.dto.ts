@@ -1,4 +1,10 @@
-import { IsOptional, IsString, ValidateNested } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateIf,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 class LocationDto {
@@ -16,6 +22,7 @@ class LocationDto {
 
 export class CreateAddressDto {
   @IsString()
+  @IsNotEmpty()
   branchName: string;
 
   @IsOptional()
@@ -23,11 +30,12 @@ export class CreateAddressDto {
   @Type(() => LocationDto)
   location: LocationDto;
 
-  @IsOptional()
   @IsString()
+  @IsNotEmpty()
   hotline?: string;
 
   @IsOptional()
   @IsString()
+  @ValidateIf((_, value) => value !== '')
   note?: string;
 }

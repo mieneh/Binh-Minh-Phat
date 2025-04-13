@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsMongoId, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsMongoId, IsOptional, IsString, ValidateIf } from 'class-validator';
 
 export class CreatePositionDto {
   @IsNotEmpty()
@@ -12,9 +12,11 @@ export class CreatePositionDto {
 
   @IsOptional()
   @IsString()
+  @ValidateIf((_, value) => value !== '')
   description?: string;
 
   @IsOptional()
   @IsString()
+  @ValidateIf((_, value) => value !== '')
   requirement?: string;
 }

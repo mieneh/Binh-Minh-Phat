@@ -85,19 +85,16 @@ export default function PartnersPage() {
   }) => {
     const payload = {
       name: values.name.trim(),
-      logo: values.logo || undefined,
-      website: values.website.trim() || undefined,
-      address: values.address.trim() || undefined,
-      note: values.note.trim() || undefined,
-      removeLogo: values.removeLogo || true,
-      contact:
-        values.phone || values.email || values.hotline
-          ? {
-              phone: values.phone.trim() || undefined,
-              email: values.email.trim() || undefined,
-              hotline: values.hotline.trim() || undefined,
-            }
-          : undefined,
+      logo: values.logo || '',
+      website: values.website.trim() || '',
+      address: values.address.trim() || '',
+      note: values.note.trim() || '',
+      removeLogo: values.removeLogo === true ? true : undefined,
+      contact: {
+        phone: values.phone.trim() || '',
+        email: values.email.trim() || '',
+        hotline: values.hotline.trim() || '',
+      }
     };
 
     try {

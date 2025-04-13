@@ -62,7 +62,7 @@ export default function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" onClick={handleOverlayClick}>
       <div
-        className={`w-full ${sizeClass} rounded-2xl bg-white shadow-xl border border-gray-100`}
+        className={`w-full ${sizeClass} rounded-2xl bg-white shadow-xl border border-gray-100 max-h-[90vh] flex flex-col`}
         onClick={stopPropagation}
       >
         {/* Header */}
@@ -92,7 +92,7 @@ export default function Modal({
         )}
 
         {/* Body */}
-        <div className="px-5 py-4">
+        <div className="px-5 py-4 overflow-y-auto flex-1">
           {children}
         </div>
 

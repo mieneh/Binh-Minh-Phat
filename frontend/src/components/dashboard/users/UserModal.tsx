@@ -122,7 +122,7 @@ export default function UserModal({
   }
 
   return (
-    <Modal isOpen={open} onClose={handleCancel} title={title}>
+    <Modal isOpen={open} onClose={handleCancel} title={title} size="lg">
       <UserForm
         locale={locale}
         mode={mode === 'edit' ? 'edit' : 'create'}

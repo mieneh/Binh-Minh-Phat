@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, ValidateIf } from 'class-validator';
 
 export class CreateCategoryDto {
   @IsString()
@@ -7,5 +7,6 @@ export class CreateCategoryDto {
 
   @IsString()
   @IsOptional()
+  @ValidateIf((_, value) => value !== '')
   description?: string;
 }

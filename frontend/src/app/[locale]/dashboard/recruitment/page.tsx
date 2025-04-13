@@ -117,7 +117,7 @@ export default function RecruitmentsPage() {
   }) => {
     const payload = {
       name: values.name.trim(),
-      description: values.description.trim() || undefined,
+      description: values.description.trim() || '',
     };
     try {
       setSavingDepartment(true);
@@ -204,8 +204,8 @@ export default function RecruitmentsPage() {
       code: values.code.trim(),
       name: values.name.trim(),
       departmentId: values.departmentId.trim(),
-      description: values.description?.trim() || undefined,
-      requirement: values.requirement?.trim() || undefined,
+      description: values.description?.trim() || '',
+      requirement: values.requirement?.trim() || '',
     };
     try {
       setSavingPosition(true);

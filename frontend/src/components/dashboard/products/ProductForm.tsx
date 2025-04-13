@@ -115,70 +115,73 @@ export default function ProductForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div className="md:col-span-2">
           <label className="mt-1 text-sm font-medium">{t(locale, 'image')}</label>
-          <div className="mt-2 relative group">
-            {image ? (
-              <>
-                <img src={image} alt="Preview" className="h-48 w-full object-cover rounded-lg border" />
-                <label className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-lg bg-black/40 opacity-0 transition group-hover:opacity-100">
-                  <span className="text-sm font-medium text-white"><Upload /></span>
+          <div className="mt-2 flex justify-center md:justify-start">
+            <div className="relative group aspect-[2/3] w-36 md:w-72">
+              {image ? (
+                <>
+                  <img src={image} alt="Preview" className="h-full w-full object-cover rounded-lg border"/>
+                  <label className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-lg bg-black/40 opacity-0 transition group-hover:opacity-100">
+                    <span className="text-sm font-medium text-white"><Upload /></span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const compressed = await imageCompression(file, {
+                          maxSizeMB: 0.15,
+                          maxWidthOrHeight: 1000,
+                          initialQuality: 0.7,
+                          useWebWorker: true,
+                        });
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setImage(reader.result as string);
+                          setRemoveImage(false);
+                        };
+                        reader.readAsDataURL(compressed);
+                      }}
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setImage(null);
+                      setRemoveImage(true);
+                    }}
+                    className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-xs font-medium shadow hover:bg-white"
+                  >
+                    ✕
+                  </button>
+                </>
+              ) : (
+                <label className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 text-sm text-gray-500 hover:border-emerald-500 hover:text-emerald-600">
+                  <span className="text-2xl"><Plus /></span>
                   <input
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onChange={async (e) => {
+                    onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (!file) return;
-                      const compressed = await imageCompression(file, {
-                        maxSizeMB: 0.2,
-                        maxWidthOrHeight: 1200,
-                        useWebWorker: true,
-                      });
                       const reader = new FileReader();
                       reader.onloadend = () => {
                         setImage(reader.result as string);
                         setRemoveImage(false);
                       };
-                      reader.readAsDataURL(compressed);
+                      reader.readAsDataURL(file);
                     }}
                   />
                 </label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setImage(null);
-                    setRemoveImage(true);
-                  }}
-                  className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-xs font-medium shadow hover:bg-white"
-                >
-                  ✕
-                </button>
-              </>
-            ) : (
-              <label className="flex h-48 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 text-sm text-gray-500 hover:border-emerald-500 hover:text-emerald-600">
-                <span className="text-2xl"><Plus /></span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setImage(reader.result as string);
-                      setRemoveImage(false);
-                    };
-                    reader.readAsDataURL(file);
-                  }}
-                />
-              </label>
-            )}
+              )}
+            </div>
           </div>
         </div>
-        <div className="mt-0 md:col-span-2 space-y-4">
+        <div className="mt-0 md:col-span-3 space-y-4">
           <div>
             <label className="mt-1 text-sm font-medium">
               {t(locale, 'productLot')} <span className="text-red-500">*</span>
@@ -205,6 +208,24 @@ export default function ProductForm({
           </div>
           <div>
             <label className="mt-1 text-sm font-medium">
+              {t(locale, 'categories')} <span className="text-red-500">*</span>
+            </label>
+            <select
+              className="mt-1 w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-emerald-500"
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              required
+            >
+              <option value="">{t(locale, 'chooseCategory')}</option>
+              {categories.map((c) => (
+                <option key={c._id} value={c._id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="mt-1 text-sm font-medium">
               {t(locale, 'quantity')} <span className="text-red-500">*</span>
             </label>
             <input
@@ -215,41 +236,24 @@ export default function ProductForm({
               required
             />
           </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="mt-1 text-sm font-medium">
-            {t(locale, 'categories')} <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="mt-1 w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-emerald-500"
-            value={categoryId}
-            onChange={(e) => setCategoryId(e.target.value)}
-            required
-          >
-            <option value="">{t(locale, 'chooseCategory')}</option>
-            {categories.map((c) => (
-              <option key={c._id} value={c._id}>{c.name}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="mt-1 text-sm font-medium">
-            {t(locale, 'partners')} <span className="text-red-500">*</span>
-          </label>
-          <select
-            className="mt-1 w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-emerald-500"
-            value={partnerId}
-            onChange={(e) => setPartnerId(e.target.value)}
-            required
-          >
-            <option value="">{t(locale, 'choosePartner')}</option>
-            {partners.map((p) => (
-              <option key={p._id} value={p._id}>{p.name}</option>
-            ))}
-          </select>
+          <div>
+            <label className="mt-1 text-sm font-medium">
+              {t(locale, 'partners')} <span className="text-red-500">*</span>
+            </label>
+            <select
+              className="mt-1 w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-emerald-500"
+              value={partnerId}
+              onChange={(e) => setPartnerId(e.target.value)}
+              required
+            >
+              <option value="">{t(locale, 'choosePartner')}</option>
+              {partners.map((p) => (
+                <option key={p._id} value={p._id}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 

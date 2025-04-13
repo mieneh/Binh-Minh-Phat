@@ -94,7 +94,7 @@ export default function RecruitmentForm({
         >
           <option value="">{t(locale, 'selectPosition')}</option>
           {positions.map((p) => (
-            <option key={p._id} value={p._id}>{p.code}</option>
+            <option key={p._id} value={p._id}>{p.name}</option>
           ))}
         </select>
       </div>

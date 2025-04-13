@@ -104,15 +104,15 @@ export default function UsersPage() {
     const payload = {
       email: values.email.trim(),
       name: values.name.trim(),
-      phone: values.phone.trim() || undefined,
-      avatar: values.avatar || undefined,
+      phone: values.phone.trim() || '',
+      avatar: values.avatar || '',
       address: {
-        province: values.province.trim(),
-        ward: values.ward.trim() || undefined,
-        street: values.street.trim() || undefined,
+        province: values.province.trim() || '',
+        ward: values.ward.trim() || '',
+        street: values.street.trim() || '',
       },
       role: values.role || 'employee',
-      removeAvatar: values.removeAvatar || true
+      removeAvatar: values.removeAvatar === true ? true : undefined,
     };
     
     try {

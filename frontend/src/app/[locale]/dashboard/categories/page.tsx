@@ -63,7 +63,7 @@ export default function CategoriesPage() {
   }) => {
     const payload = {
       name: values.name.trim(),
-      description: values.description.trim() || undefined,
+      description: values.description.trim() || '',
     };
     try {
       setSaving(true);

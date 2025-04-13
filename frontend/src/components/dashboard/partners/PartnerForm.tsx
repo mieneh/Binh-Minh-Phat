@@ -103,70 +103,73 @@ export default function PartnerForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="flex flex-col items-center">
-          <label className="text-sm font-medium">{t(locale, 'logo')}</label>
-          <div className="mt-2 relative group aspect-square w-full max-w-[120px]">
-            {logo ? (
-              <>
-                <img src={logo} alt="Preview" className="h-full w-full object-cover rounded-lg border"/>
-                <label className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-lg bg-black/40 opacity-0 transition group-hover:opacity-100">
-                  <span className="text-sm font-medium text-white"><Upload /></span>
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div className="md:col-span-1">
+          <label className="mt-1 text-sm font-medium">{t(locale, 'logo')}</label>
+          <div className="mt-2 flex justify-center md:justify-start">
+            <div className="relative group aspect-square w-full max-w-[180px] md:max-w-[120px]">
+              {logo ? (
+                <>
+                  <img src={logo} alt="Preview" className="h-full w-full object-cover rounded-lg border"/>
+                  <label className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-lg bg-black/40 opacity-0 transition group-hover:opacity-100">
+                    <span className="text-sm font-medium text-white"><Upload /></span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const compressed = await imageCompression(file, {
+                          maxSizeMB: 0.15,
+                          maxWidthOrHeight: 1000,
+                          initialQuality: 0.7,
+                          useWebWorker: true,
+                        });
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setLogo(reader.result as string);
+                          setRemoveLogo(false);
+                        };
+                        reader.readAsDataURL(compressed);
+                      }}
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLogo(null);
+                      setRemoveLogo(true);
+                    }}
+                    className="absolute -right-2 -top-2 rounded-full bg-white/90 px-2 py-1 text-xs font-medium shadow hover:bg-white"
+                  >
+                    ✕
+                  </button>
+                </>
+              ) : (
+                <label className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 text-sm text-gray-500 hover:border-emerald-500 hover:text-emerald-600">
+                  <span className="text-2xl"><Plus /></span>
                   <input
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onChange={async (e) => {
+                    onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (!file) return;
-                      const compressed = await imageCompression(file, {
-                        maxSizeMB: 0.2,
-                        maxWidthOrHeight: 1200,
-                        useWebWorker: true,
-                      });
                       const reader = new FileReader();
                       reader.onloadend = () => {
                         setLogo(reader.result as string);
                         setRemoveLogo(false);
                       };
-                      reader.readAsDataURL(compressed);
+                      reader.readAsDataURL(file);
                     }}
                   />
                 </label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setLogo(null);
-                    setRemoveLogo(true);
-                  }}
-                  className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-1 text-xs font-medium shadow hover:bg-white"
-                >
-                  ✕
-                </button>
-              </>
-            ) : (
-              <label className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 text-sm text-gray-500 hover:border-emerald-500 hover:text-emerald-600">
-                <span className="text-2xl"><Plus /></span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setLogo(reader.result as string);
-                      setRemoveLogo(false);
-                    };
-                    reader.readAsDataURL(file);
-                  }}
-                />
-              </label>
-            )}
+              )}
+            </div>
           </div>
         </div>
-        <div className="mt-0 md:col-span-2 space-y-4">          
+        <div className="mt-0 md:col-span-4 space-y-4">          
           <div>
             <label className="mt-1 text-sm font-medium">
               {t(locale, 'partnerName')} <span className="text-red-500"> *</span>

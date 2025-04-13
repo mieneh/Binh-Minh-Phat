@@ -85,12 +85,12 @@ export default function ProductsPage() {
         const payload = {
           lot: values.lot.trim(),
           name: values.name.trim(),
-          description: values.description.trim() || undefined,
-          image: values.image || undefined,
+          description: values.description.trim() || '',
+          image: values.image || '',
           quantity: values.quantity || 0,
-          categoryId: values.categoryId || undefined,
-          partnerId: values.partnerId || undefined,
-          removeImage: values.removeImage || true
+          categoryId: values.categoryId || '',
+          partnerId: values.partnerId || '',
+          removeImage: values.removeImage === true ? true : undefined
         };
     
         try {

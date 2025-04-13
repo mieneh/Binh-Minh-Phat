@@ -88,7 +88,7 @@ export default function CompaniesPage() {
         street: values.street.trim() || undefined,
       },
       hotline: values.hotline.trim() || undefined,
-      note: values.note.trim() || undefined,
+      note: values.note.trim() || '',
     };
 
     try {

@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  ValidateIf,
 } from 'class-validator';
 
 export class CreateProductDto {
@@ -17,6 +18,7 @@ export class CreateProductDto {
 
   @IsOptional()
   @IsString()
+  @ValidateIf((_, value) => value !== '')
   description?: string;
 
   @IsOptional()

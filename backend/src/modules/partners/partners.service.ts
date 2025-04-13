@@ -75,13 +75,15 @@ export class PartnersService {
       name: dto.name ?? partner.name,
       website: dto.website ?? partner.website,
       address: dto.address ?? partner.address,
-      contact:
-        dto.contact?.phone ??
-        (partner.contact?.phone || dto.contact?.email) ??
-        (partner.contact?.email || dto.contact?.hotline) ??
-        partner.contact?.hotline,
       note: dto.note ?? partner.note,
     };
+    if (dto.contact) {
+      updateData.contact = {
+        phone: dto.contact.phone ?? partner.contact?.phone,
+        email: dto.contact.email ?? partner.contact?.email,
+        hotline: dto.contact.hotline ?? partner.contact?.hotline,
+      };
+    }
     if (dto.removeLogo === true) {
       if (partner.logoPublicId) {
         await this.cloudinary.deleteImage(partner.logoPublicId);

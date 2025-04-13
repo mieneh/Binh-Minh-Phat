@@ -140,11 +140,11 @@ export default function UserForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-0">
-        <div>
-          <label className="mt-1 block text-sm font-medium">{t(locale, 'userAvatar')}</label>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="md:col-span-1">
+          <label className="mt-1 text-sm font-medium">{t(locale, 'userAvatar')}</label>
           <div className="mt-2 flex justify-center md:justify-start">
-            <div className="relative group h-50 w-50">
+            <div className="relative group aspect-square w-full max-w-[180px] md:max-w-[202px]">
               {avatar ? (
                 <>
                   <img src={avatar} alt="Preview" className="h-full w-full rounded-lg border object-cover"/>
@@ -158,8 +158,9 @@ export default function UserForm({
                         const file = e.target.files?.[0];
                         if (!file) return;
                         const compressed = await imageCompression(file, {
-                          maxSizeMB: 0.2,
-                          maxWidthOrHeight: 1200,
+                          maxSizeMB: 0.15,
+                          maxWidthOrHeight: 1000,
+                          initialQuality: 0.7,
                           useWebWorker: true,
                         });
                         const reader = new FileReader();
@@ -184,7 +185,7 @@ export default function UserForm({
                 </>
               ) : (
                 <label className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 text-gray-500 hover:border-emerald-500 hover:text-emerald-600">
-                  <Plus className="text-2xl" />
+                  <span className="text-2xl"><Plus /></span>
                   <input
                     type="file"
                     accept="image/*"
@@ -205,7 +206,7 @@ export default function UserForm({
             </div>
           </div>
         </div>
-        <div className="mt-0 md:col-span-1 space-y-4">
+        <div className="mt-0 md:col-span-2 space-y-4">
           <div>
             <label className="mt-1 text-sm font-medium">
               Email <span className="text-red-500">*</span>

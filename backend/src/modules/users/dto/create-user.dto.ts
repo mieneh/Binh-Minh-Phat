@@ -4,6 +4,7 @@ import {
   IsString,
   IsIn,
   ValidateNested,
+  ValidateIf,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { i18nValidationMessage } from 'nestjs-i18n';
@@ -11,14 +12,17 @@ import { i18nValidationMessage } from 'nestjs-i18n';
 class AddressDto {
   @IsOptional()
   @IsString()
+  @ValidateIf((_, value) => value !== '')
   province: string;
 
   @IsOptional()
   @IsString()
+  @ValidateIf((_, value) => value !== '')
   ward?: string;
 
   @IsOptional()
   @IsString()
+  @ValidateIf((_, value) => value !== '')
   street?: string;
 }
 
@@ -36,6 +40,7 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsString()
+  @ValidateIf((_, value) => value !== '')
   phone?: string;
 
   @IsOptional()
