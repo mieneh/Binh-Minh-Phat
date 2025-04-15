@@ -1,25 +1,28 @@
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import HeroSection from '@/components/bmp/HeroSection';
+import AboutSection from '@/components/bmp/AboutSection';
+import ServicesSection from '@/components/bmp/ServicesSection';
+import ProductsSection from '@/components/bmp/ProductsSection';
+import CapabilitiesSection from '@/components/bmp/CapabilitiesSection';
+import PartnersSection from '@/components/bmp/PartnersSection';
+import CertificationsSection from '@/components/bmp/CertificationsSection';
+import StickyQuoteButton from '@/components/ui/sticky-quote-button';
 
 export default async function HomePage() {
   return (
     <div>
       <Navbar />
-      <section className="mx-auto flex items-center px-3 py-3 gap-6">
-        <section id="" className="scroll-mt-24" />
-
-        <section id="product" className="scroll-mt-24">
-          
-        </section>
-
-        <section id="contact" className="scroll-mt-24">
-          
-        </section>
-
-        <section id="recruitment" className="scroll-mt-24">
-          
-        </section>
-      </section>
+      <main className="min-h-screen">
+        <HeroSection />
+        <AboutSection />
+        <ServicesSection />
+        <ProductsSection />
+        <CapabilitiesSection />
+        <PartnersSection /> 
+        <CertificationsSection />
+        <StickyQuoteButton />
+      </main>
       <Footer />
     </div>
   );

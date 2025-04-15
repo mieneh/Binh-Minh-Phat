@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { t } from '@/i18n';
 
-export default function CategoriesPage() {
+export default function DashboardPage() {
   const { locale } = useParams() as { locale: 'vi' | 'en' };
 
   return (

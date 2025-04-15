@@ -27,6 +27,7 @@ export default function Navbar() {
     { name: 'products', label: t(locale, 'products') },
     { name: 'capabilities', label: t(locale, 'capabilities') },
     { name: 'partners', label: t(locale, 'partners') },
+    { name: 'certifications', label: t(locale, 'certifications') },
     { name: 'careers', label: 'Careers' },
     { name: 'contact', label: t(locale, 'contact') },
   ];
