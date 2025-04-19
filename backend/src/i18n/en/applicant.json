@@ -1,0 +1,7 @@
+{
+    "createSuccess": "Create applicant has been created",
+    "updateSuccess": "Update applicant successfully",
+    "deleteSuccess": "Delete applicant successfully",
+    "notFound": "Applicant not found",
+    "duplicate": "Applicant already exists for this position"
+}

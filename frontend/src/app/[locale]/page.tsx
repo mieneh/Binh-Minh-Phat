@@ -7,6 +7,8 @@ import ProductsSection from '@/components/bmp/ProductsSection';
 import CapabilitiesSection from '@/components/bmp/CapabilitiesSection';
 import PartnersSection from '@/components/bmp/PartnersSection';
 import CertificationsSection from '@/components/bmp/CertificationsSection';
+import CareersSection from '@/components/bmp/CareersSection';
+import ContactSection from '@/components/bmp/ContactSection';
 import StickyQuoteButton from '@/components/ui/sticky-quote-button';
 
 export default async function HomePage() {
@@ -21,6 +23,8 @@ export default async function HomePage() {
         <CapabilitiesSection />
         <PartnersSection /> 
         <CertificationsSection />
+        <CareersSection />
+        <ContactSection />
         <StickyQuoteButton />
       </main>
       <Footer />

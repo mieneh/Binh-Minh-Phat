@@ -1,0 +1,7 @@
+{
+    "createSuccess": "Ứng viên đã được tạo",
+    "updateSuccess": "Cập nhật ứng viên thành công",
+    "deleteSuccess": "Xóa ứng viên thành công",
+    "notFound": "Không tìm thấy ứng viên",
+    "duplicate": "Ứng viên đã tồn tại cho vị trí này"
+}

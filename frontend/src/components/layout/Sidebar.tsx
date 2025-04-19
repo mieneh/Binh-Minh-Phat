@@ -21,7 +21,7 @@ export default function Sidebar() {
     { href: `/${locale}/dashboard/products`, label: t(locale, 'products') },
     { href: `/${locale}/dashboard/partners`, label: t(locale, 'partners') },
     { href: `/${locale}/dashboard/recruitment`, label: t(locale, 'recruitment') },
-    { href: `/${locale}/dashboard/apply-job`, label: t(locale, 'applyJob') },
+    { href: `/${locale}/dashboard/applicant`, label: t(locale, 'applicant') },
     { href: `/${locale}/dashboard/contact`, label: t(locale, 'contact') },
   ];
 
