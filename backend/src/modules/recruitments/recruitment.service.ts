@@ -11,7 +11,6 @@ import {
   RecruitmentDocument,
 } from 'src/schemas/recruitment.schema';
 import { Position, PositionDocument } from 'src/schemas/position.schema';
-import { Address, AddressDocument } from 'src/schemas/address.schema';
 import { Applicant, ApplicantDocument } from 'src/schemas/applicant.schema';
 import { CreateRecruitmentDto } from './dto/create-recruitment.dto';
 import { UpdateRecruitmentDto } from './dto/update-recruitment.dto';
@@ -23,8 +22,6 @@ export class RecruitmentService {
     private readonly recruitmentModel: Model<RecruitmentDocument>,
     @InjectModel(Position.name)
     private readonly positionModel: Model<PositionDocument>,
-    @InjectModel(Address.name)
-    private readonly addressModel: Model<AddressDocument>,
     @InjectModel(Applicant.name)
     private readonly applicantModel: Model<ApplicantDocument>,
     private readonly i18n: I18nService,
@@ -57,7 +54,12 @@ export class RecruitmentService {
   async findAll() {
     return this.recruitmentModel
       .find()
-      .populate('positionId')
+      .populate({
+        path: 'positionId',
+        populate: {
+          path: 'departmentId',
+        },
+      })
       .populate('addressId')
       .sort({ createdAt: -1 })
       .exec();
@@ -69,7 +71,12 @@ export class RecruitmentService {
         isActive: true,
         deadline: { $gte: new Date() },
       })
-      .populate('positionId')
+      .populate({
+        path: 'positionId',
+        populate: {
+          path: 'departmentId',
+        },
+      })
       .populate('addressId')
       .sort({ deadline: 1 })
       .exec();
@@ -78,7 +85,12 @@ export class RecruitmentService {
   async findOne(id: string) {
     const found = await this.recruitmentModel
       .findById(id)
-      .populate('positionId')
+      .populate({
+        path: 'positionId',
+        populate: {
+          path: 'departmentId',
+        },
+      })
       .populate('addressId')
       .exec();
     if (!found) {

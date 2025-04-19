@@ -63,6 +63,10 @@ export default function ApplicantModal({
                     </span>
                 </div>
                 <div>
+                    <div className="text-xs uppercase text-gray-400">{t(locale, 'department')}</div>
+                    <div className="mt-1">{applicant.recruitmentId?.positionId?.departmentId?.name || '-'}</div>
+                </div>
+                <div>
                     <div className="text-xs uppercase text-gray-400">{t(locale, 'fullName')}</div>
                     <div className="mt-1">{applicant.fullName}</div>
                 </div>

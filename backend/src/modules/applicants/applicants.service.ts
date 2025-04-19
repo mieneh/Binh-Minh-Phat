@@ -36,6 +36,9 @@ export class ApplicantsService {
         path: 'recruitmentId',
         populate: {
           path: 'positionId',
+          populate: {
+            path: 'departmentId',
+          },
         },
       })
       .sort({ createdAt: -1 })
@@ -49,6 +52,9 @@ export class ApplicantsService {
         path: 'recruitmentId',
         populate: {
           path: 'positionId',
+          populate: {
+            path: 'departmentId',
+          },
         },
       })
       .exec();
@@ -65,6 +71,9 @@ export class ApplicantsService {
         path: 'recruitmentId',
         populate: {
           path: 'positionId',
+          populate: {
+            path: 'departmentId',
+          },
         },
       })
       .exec();
