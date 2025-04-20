@@ -328,5 +328,17 @@
   "company": "Công ty",
   "country": "Quốc gia",
   "volume": "Sản lượng dự kiến/tháng",
-  "message": "Tin nhắn"
+  "message": "Tin nhắn",
+
+  "welcomeDashboard": "Chào mừng đến trang quản trị",
+  "dashboardSubtitle": "Quản lý dữ liệu hệ thống, người dùng và hoạt động kinh doanh",
+  "totalUsers": "Người dùng",
+  "totalApplicants": "Ứng viên",
+  "totalContacts": "Liên hệ",
+  "totalProducts": "Sản phẩm",
+  "dashboardGuideTitle": "Hướng dẫn nhanh",
+  "dashboardGuideUsers": "Quản lý người dùng và phân quyền truy cập",
+  "dashboardGuideProducts": "Quản lý sản phẩm và đối tác",
+  "dashboardGuideRecruitment": "Theo dõi tuyển dụng và ứng viên",
+  "dashboardGuideContacts": "Xem và xử lý các yêu cầu liên hệ từ khách hàng"
 }

@@ -26,8 +26,20 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-50 bg-white border-r h-full px-2 sticky top-16">
-      <ul className="flex flex-col gap-1 mt-2">
+    <aside className="w-37 md:w-50 shrink-0 bg-white border-r h-full sticky top-16">
+      <ul className="flex flex-col gap-1 p-3">
+        <li key={`/${locale}/dashboard`}>
+          <Link
+            href={`/${locale}/dashboard`}
+            className={`block rounded px-2 py-2 text-sm transition ${
+              isActive(`/${locale}/dashboard`)
+                ? 'bg-emerald-50 text-emerald-700 font-medium'
+                : 'text-slate-700 hover:bg-slate-100'
+            }`}
+          >
+            {t(locale, 'dashboard')}
+          </Link>
+        </li>
         {user?.role == "admin" && (
           <>
             {privateLinks.map((link) => {

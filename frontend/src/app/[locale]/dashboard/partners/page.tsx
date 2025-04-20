@@ -152,7 +152,7 @@ export default function PartnersPage() {
 
   return (
     <div className="w-full">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 md:mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold">{t(locale, 'partners')}</h1>
           <p className="text-sm mt-2 opacity-80">{t(locale, 'managePartnersDescription')}</p>

@@ -31,9 +31,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div>
       <Navbar />
-      <section className="max-w-[140vh] mx-auto px-4 py-10 flex gap-6">
+      <section className="max-w-7xl mx-auto flex py-5 md:py-8">
         <Sidebar />
-        {children}
+        <div className="flex-1 min-w-0 p-5">
+          {children}
+        </div>
       </section>
       <Footer />
     </div>

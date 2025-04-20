@@ -52,7 +52,7 @@ export default function ContactsPage() {
 
   return (
     <div className="w-full">
-      <div className="mb-6">
+      <div className="mb-6 md:mb-4">
         <h1 className="text-2xl font-semibold">{t(locale, 'contact')}</h1>
         <p className="text-sm mt-2 opacity-80">{t(locale, 'manageContactsDescription')}</p>
       </div>

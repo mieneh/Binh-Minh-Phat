@@ -5,15 +5,9 @@ import { useParams } from "next/navigation";
 import { t } from "@/i18n";
 import { toast } from "react-toastify";
 
-import {
-  departmentService,
-  Department,
-} from "@/lib/services/department.service";
+import { departmentService, Department} from "@/lib/services/department.service";
 import { positionService, Position } from "@/lib/services/position.service";
-import {
-  recruitmentService,
-  Recruitment,
-} from "@/lib/services/recruitment.service";
+import { recruitmentService, Recruitment } from "@/lib/services/recruitment.service";
 
 import DepartmentTable from "@/components/dashboard/departments/DepartmentTable";
 import DepartmentModal from "@/components/dashboard/departments/DepartmentModal";
@@ -40,12 +34,9 @@ export default function RecruitmentsPage() {
   // ================= DEPARTMENT STATE =================
   const [departments, setDepartments] = useState<Department[]>([]);
   const [departmentModalOpen, setDepartmentModalOpen] = useState(false);
-  const [editingDepartment, setEditingDepartment] = useState<Department | null>(
-    null
-  );
+  const [editingDepartment, setEditingDepartment] = useState<Department | null>(null);
   const [savingDepartment, setSavingDepartment] = useState(false);
-  const [deleteDepartmentTarget, setDeleteDepartmentTarget] =
-    useState<Department | null>(null);
+  const [deleteDepartmentTarget, setDeleteDepartmentTarget] = useState<Department | null>(null);
   const [deletingDepartment, setDeletingDepartment] = useState(false);
   const isEditingDepartment = Boolean(editingDepartment);
 

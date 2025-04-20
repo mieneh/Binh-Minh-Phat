@@ -127,11 +127,11 @@ export default function ProductModal({
             <div className="mt-1 whitespace-pre-wrap text-sm">{product.description || '—'}</div>
           </div>
 
-          <div className="flex justify-end gap-2">
+          <div className="sticky bottom-0 border-t mt-6 flex justify-end gap-2">
             <button
               type="button"
               onClick={handleCancel}
-              className="rounded-md border px-4 py-2 text-sm hover:bg-gray-50"
+              className="rounded-md border px-4 py-2 mt-4 text-sm font-medium hover:bg-gray-50 disabled:opacity-60"
             >
               {t(locale, 'close')}
             </button>
@@ -139,7 +139,7 @@ export default function ProductModal({
               <button
                 type="button"
                 onClick={onSwitchToEdit}
-                className="rounded-md bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700"
+                className="rounded-md bg-emerald-600 px-4 py-2 mt-4 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-60"
               >
                 {t(locale, 'edit')}
               </button>

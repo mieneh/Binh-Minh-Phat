@@ -66,7 +66,7 @@ export default function CareersPage() {
     return (
         <div>
             <Navbar />
-            <section className="max-w-7xl mx-auto px-4 py-10">
+            <section className="max-w-7xl mx-auto p-5 mb-7 py-5 md:py-8">
                 <h1 className="text-2xl font-bold py-5">{t(locale, 'recruitment')}</h1>
                 <div className="grid sm:grid-cols-3 gap-4 mb-8">
                     <div className="relative">

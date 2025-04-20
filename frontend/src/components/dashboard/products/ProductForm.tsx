@@ -268,19 +268,19 @@ export default function ProductForm({
         />
       </div>
 
-      <div className="mt-4 flex items-center justify-end gap-2">
+      <div className="sticky bottom-0 border-t mt-6 flex justify-end gap-2">
         <button
           type="button"
           onClick={onCancel}
           disabled={submitting}
-          className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-gray-50 disabled:opacity-60"
+          className="rounded-md border px-4 py-2 mt-4 text-sm font-medium hover:bg-gray-50 disabled:opacity-60"
         >
           {t(locale, 'cancel')}
         </button>
         <button
           type="submit"
           disabled={submitting || !isDirty}
-          className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-60"
+          className="rounded-md bg-emerald-600 px-4 py-2 mt-4 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-60"
         >
           {submitting ? t(locale, 'saving') : mode === 'edit' ? t(locale, 'save') : t(locale, 'create')}
         </button>

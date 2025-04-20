@@ -7,7 +7,6 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  description?: string;
   children: ReactNode;
   footer?: ReactNode;
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -18,7 +17,6 @@ export default function Modal({
   isOpen,
   onClose,
   title,
-  description,
   children,
   footer,
   size = 'md',
@@ -60,43 +58,15 @@ export default function Modal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" onClick={handleOverlayClick}>
-      <div
-        className={`w-full ${sizeClass} rounded-2xl bg-white shadow-xl border border-gray-100 max-h-[90vh] flex flex-col`}
-        onClick={stopPropagation}
-      >
-        {/* Header */}
-        {(title || description) && (
-          <div className="flex items-start justify-between px-5 py-4 border-b border-gray-100">
-            <div>
-              {title && (
-                <h2 className="text-base font-semibold text-gray-900">
-                  {title}
-                </h2>
-              )}
-              {description && (
-                <p className="mt-1 text-xs text-gray-500">
-                  {description}
-                </p>
-              )}
-            </div>
-            <button
-              type="button"
-              onClick={onClose}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100"
-              aria-label="Close"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-        )}
-
-        {/* Body */}
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={handleOverlayClick}>
+      <div className={`bg-white rounded-3xl ${sizeClass} w-full max-h-[90vh] overflow-y-auto shadow-2xl`} onClick={stopPropagation}>
+        <div className="flex items-start justify-between px-5 py-3 mt-1 border-b border-gray-100">
+          <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+          <button onClick={onClose}><X /></button>
+        </div>
         <div className="px-5 py-4 overflow-y-auto flex-1">
           {children}
         </div>
-
-        {/* Footer */}
         {footer && (
           <div className="px-5 py-3 border-t border-gray-100 bg-gray-50 rounded-b-2xl">
             <div className="flex items-center justify-end gap-2">

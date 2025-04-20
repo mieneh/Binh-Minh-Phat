@@ -22,10 +22,12 @@ export default function ProfilePage() {
 
   if (loading) return <p className="text-center p-4">{t(locale, 'loading')}</p>;
 
+  if (!user) return null;
+
   return (
     <div>
       <Navbar />
-      <section className="max-w-[140vh] mx-auto px-4 py-10">
+      <section className="max-w-7xl mx-auto p-5 mb-7 py-5 md:py-8">
         <h1 className="text-2xl font-bold py-5">{t(locale, 'profileTitle')}</h1>
         <PersonalCard user={user} t={t} locale={locale} />
       </section>

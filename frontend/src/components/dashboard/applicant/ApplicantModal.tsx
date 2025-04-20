@@ -101,18 +101,18 @@ export default function ApplicantModal({
                     </a>
                 </div>
                 {canDecide && (
-                    <div className="flex justify-end gap-2 pt-4 border-t">
+                    <div className="sticky bottom-0 border-t mt-6 flex justify-end gap-2">
                         <button
                             type="button"
                             onClick={() => handleChangeStatus('FAIL')}
-                            className="rounded-md border px-4 py-2 text-sm hover:bg-gray-50"
+                            className="rounded-md border px-4 py-2 mt-4 text-sm font-medium hover:bg-gray-50 disabled:opacity-60"
                         >
                             {t(locale, 'FAIL')}
                         </button>
                         <button
                             type="button"
                             onClick={() => handleChangeStatus('PASS')}
-                            className="rounded-md bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700"
+                            className="rounded-md bg-emerald-600 px-4 py-2 mt-4 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-60"
                         >
                             {t(locale, 'PASS')}
                         </button>
