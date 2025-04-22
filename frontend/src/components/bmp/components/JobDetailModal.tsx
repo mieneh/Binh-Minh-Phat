@@ -69,15 +69,21 @@ export function JobDetailModal({
                     </div>
                     <section>
                         <h4 className="text-base font-semibold mb-1">{t(locale, 'positionDescription')}</h4>
-                        <div className="whitespace-pre-line leading-relaxed text-gray-700">
-                            {job.positionId.description}
-                        </div>
+                        <div
+                            className="prose prose-sm max-w-none mt-2 text-gray-700 leading-relaxed [&_p]:mb-2 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-2 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-2 [&_li]:mb-1"
+                            dangerouslySetInnerHTML={{
+                                __html: job.positionId.description || '<p>—</p>',
+                            }}
+                        />
                     </section>
                     <section>
                         <h4 className="text-base font-semibold mb-1">{t(locale, 'positionRequirement')}</h4>
-                        <div className="whitespace-pre-line leading-relaxed text-gray-700">
-                            {job.positionId.requirement}
-                        </div>
+                        <div
+                            className="prose prose-sm max-w-none mt-2 text-gray-700 leading-relaxed [&_p]:mb-2 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-2 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-2 [&_li]:mb-1"
+                            dangerouslySetInnerHTML={{
+                                __html: job.positionId.requirement || '<p>—</p>',
+                            }}
+                        />
                     </section>
                     <section>
                         <h4 className="text-base font-semibold mb-1">{t(locale, 'experience')}</h4>

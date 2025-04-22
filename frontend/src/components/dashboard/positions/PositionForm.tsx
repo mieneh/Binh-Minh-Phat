@@ -3,6 +3,7 @@
 import { useEffect, useState, FormEvent } from 'react';
 import { t } from '@/i18n';
 import { departmentService, Department } from '@/lib/services/department.service';
+import RichTextEditor from '@/components/common/RichTextEditor';
 
 interface PositionFormProps {
   locale: 'vi' | 'en';
@@ -121,23 +122,17 @@ export default function PositionForm({
 
       <div>
         <label className="mt-1 text-sm font-medium">{t(locale, 'positionDescription')}</label>
-        <textarea
-          className="mt-1 w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-emerald-500"
-          rows={3}
+        <RichTextEditor
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder={t(locale, 'descriptionPlaceholder')}
+          onChange={setDescription}
         />
       </div>
 
       <div>
         <label className="mt-1 text-sm font-medium">{t(locale, 'positionRequirement')}</label>
-        <textarea
-          className="mt-1 w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-emerald-500"
-          rows={3}
+        <RichTextEditor
           value={requirement}
-          onChange={(e) => setRequirement(e.target.value)}
-          placeholder={t(locale, 'requirementPlaceholder')}
+          onChange={setRequirement}
         />
       </div>
 

@@ -84,12 +84,22 @@ export default function RecruitmentModal({
 
           <div>
             <div className="text-xs uppercase text-gray-400">{t(locale, 'positionDescription')}</div>
-            <div className="mt-1 text-sm">{recruitment.positionId.description || '—'}</div>
+            <div
+              className="prose max-w-none mt-2 text-sm focus:outline-none [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1"
+              dangerouslySetInnerHTML={{
+                __html: recruitment.positionId.description || '<p>—</p>',
+              }}
+            />
           </div>
 
           <div>
             <div className="text-xs uppercase text-gray-400">{t(locale, 'positionRequirement')}</div>
-            <div className="mt-1 text-sm">{recruitment.positionId.requirement || '—'}</div>
+            <div
+              className="prose max-w-none mt-2 text-sm focus:outline-none [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1"
+              dangerouslySetInnerHTML={{
+                __html: recruitment.positionId.requirement || '<p>—</p>',
+              }}
+            />
           </div>
 
           <div className="sticky bottom-0 border-t mt-6 flex justify-end gap-2">

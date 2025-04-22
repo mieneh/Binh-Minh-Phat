@@ -70,12 +70,22 @@ export default function PositionModal({
 
           <div>
             <div className="text-xs uppercase text-gray-400">{t(locale, 'positionDescription')}</div>
-            <div className="mt-1 text-sm">{position.description || '—'}</div>
+            <div
+              className="prose max-w-none mt-2 text-sm focus:outline-none [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1"
+              dangerouslySetInnerHTML={{
+                __html: position.description || '<p>—</p>',
+              }}
+            />
           </div>
 
           <div>
             <div className="text-xs uppercase text-gray-400">{t(locale, 'positionRequirement')}</div>
-            <div className="mt-1 text-sm">{position.requirement || '—'}</div>
+            <div
+              className="prose max-w-none mt-2 text-sm focus:outline-none [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:my-1"
+              dangerouslySetInnerHTML={{
+                __html: position.requirement || '<p>—</p>',
+              }}
+            />
           </div>
 
           <div className="sticky bottom-0 border-t mt-6 flex justify-end gap-2">
