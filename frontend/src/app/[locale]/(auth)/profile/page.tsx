@@ -89,10 +89,9 @@ export default function ProfilePage() {
   return (
     <div>
       <Navbar />
-      <section className="max-w-7xl mx-auto p-5 mb-7 py-5 md:py-8">
-        <div className="flex items-center justify-between flex-wrap gap-3">
-          <h1 className="text-2xl font-bold">{t(locale, 'profileTitle')}</h1>
-
+      <section className="max-w-7xl mx-auto p-5 mb-4 py-5 md:py-8 md:mt-3 md:mb-7">
+        <div className="flex items-center justify-between flex-wrap">
+          <h1 className="text-2xl font-bold py-2">{t(locale, 'profileTitle')}</h1>
           <div className="flex gap-2">
             <button
               onClick={() => setOpenEdit(true)}
@@ -109,7 +108,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-5">
           <PersonalCard user={user} t={t} locale={locale} />
         </div>
       </section>
