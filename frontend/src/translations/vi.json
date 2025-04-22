@@ -340,5 +340,17 @@
   "dashboardGuideUsers": "Quản lý người dùng và phân quyền truy cập",
   "dashboardGuideProducts": "Quản lý sản phẩm và đối tác",
   "dashboardGuideRecruitment": "Theo dõi tuyển dụng và ứng viên",
-  "dashboardGuideContacts": "Xem và xử lý các yêu cầu liên hệ từ khách hàng"
+  "dashboardGuideContacts": "Xem và xử lý các yêu cầu liên hệ từ khách hàng",
+  
+  "editProfile": "Chỉnh sửa hồ sơ",
+  "updateProfileFailed": "Cập nhật hồ sơ thất bại",
+  "changePassword": "Đổi mật khẩu",
+  "oldPassword": "Mật khẩu hiện tại",
+  "confirmPassword": "Xác nhận mật khẩu",
+  "oldPasswordPlaceholder": "Nhập mật khẩu hiện tại",
+  "newPasswordPlaceholder": "Nhập mật khẩu mới",
+  "confirmPasswordPlaceholder": "Xác nhận mật khẩu mới",
+  "passwordNotMatch": "Mật khẩu xác nhận không khớp",
+  "pleaseFillAllRequiredFields": "Vui lòng điền vào tất cả các trường bắt buộc",
+  "changePasswordSuccess": "Đổi mật khẩu thành công!"
 }

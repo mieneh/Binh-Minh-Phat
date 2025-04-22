@@ -14,6 +14,8 @@ import { JwtPayload } from 'jsonwebtoken';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { AuthService } from './auth.service';
 import { SignInAuthDto, SignOutAuthDto } from './dto/auth.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { I18n, I18nContext } from 'nestjs-i18n';
 
 @Controller('auth')
@@ -72,6 +74,44 @@ export class AuthController {
     return {
       status: 200,
       user,
+    };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('profile')
+  async editProfile(
+    @Req() req: Request & { user?: JwtPayload },
+    @Body() body: UpdateProfileDto,
+    @I18n() i18n: I18nContext,
+  ) {
+    if (!req.user?.sub) {
+      throw new UnauthorizedException(i18n.translate('auth.invalidToken'));
+    }
+
+    const user = await this.authService.editProfile(req.user.sub, body);
+    return {
+      status: 200,
+      message: i18n.translate('auth.updateProfileSuccess'),
+      user,
+    };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('change-password')
+  async changePassword(
+    @Req() req: Request & { user?: JwtPayload },
+    @Body() body: ChangePasswordDto,
+    @I18n() i18n: I18nContext,
+  ) {
+    if (!req.user?.sub) {
+      throw new UnauthorizedException(i18n.translate('auth.invalidToken'));
+    }
+
+    await this.authService.changePassword(req.user.sub, body);
+
+    return {
+      status: 200,
+      message: i18n.translate('auth.changePasswordSuccess'),
     };
   }
 }

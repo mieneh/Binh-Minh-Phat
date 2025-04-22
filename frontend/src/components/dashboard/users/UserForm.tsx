@@ -5,6 +5,16 @@ import { t } from '@/i18n';
 import imageCompression from 'browser-image-compression';
 import { Plus, Upload } from 'lucide-react';
 
+interface Province {
+  code: number;
+  name: string;
+}
+
+interface Ward {
+  code: number;
+  name: string;
+}
+
 interface UserFormProps {
   locale: 'vi' | 'en';
   mode: 'create' | 'edit';

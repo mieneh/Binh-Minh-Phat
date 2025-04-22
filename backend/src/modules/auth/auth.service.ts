@@ -3,7 +3,6 @@ import {
   NotFoundException,
   UnauthorizedException,
   OnModuleInit,
-  Logger,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -12,15 +11,19 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 import { User, UserDocument } from 'src/schemas/user.schema';
+import { CloudinaryService } from 'src/common/cloudinary/cloudinary.service';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class AuthService implements OnModuleInit {
   constructor(
-    @InjectModel(User.name) 
+    @InjectModel(User.name)
     private readonly userModel: Model<UserDocument>,
     private readonly i18n: I18nService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly cloudinary: CloudinaryService,
   ) {}
 
   async onModuleInit() {
@@ -49,7 +52,9 @@ export class AuthService implements OnModuleInit {
       role: 'admin',
       isActive: true,
     });
-    console.log(`Admin account created with email ${email}. Please change password after first login.`);
+    console.log(
+      `Admin account created with email ${email}. Please change password after first login.`,
+    );
   }
 
   async findById(id: string): Promise<User> {
@@ -74,7 +79,11 @@ export class AuthService implements OnModuleInit {
 
   // Tạo mã token
   generateTokens(user: UserDocument) {
-    const payload = { sub: user._id.toString(), email: user.email, role: user.role };
+    const payload = {
+      sub: user._id.toString(),
+      email: user.email,
+      role: user.role,
+    };
     const secret = this.configService.get<string>('JWT_SECRET') || 'dev_secret';
     const accessToken = this.jwtService.sign(payload, {
       secret,
@@ -88,7 +97,7 @@ export class AuthService implements OnModuleInit {
   }
 
   // Xử lí signin
-async signin(data: Partial<User>) {
+  async signin(data: Partial<User>) {
     if (!data.email || !data.password) {
       throw new UnauthorizedException(
         this.i18n.translate('auth.invalidCredentials'),
@@ -122,15 +131,76 @@ async signin(data: Partial<User>) {
   async signout(userId: string, refreshToken: string) {
     const user = await this.userModel.findById(userId);
     if (!user) {
-      throw new NotFoundException(
-        this.i18n.translate('auth.userNotFound'),
-      );
+      throw new NotFoundException(this.i18n.translate('auth.userNotFound'));
     }
     if (refreshToken && !user.usedRefreshTokens.includes(refreshToken)) {
       user.usedRefreshTokens.push(refreshToken);
     }
     await user.save();
 
+    return true;
+  }
+
+  async editProfile(userId: string, dto: UpdateProfileDto) {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException(this.i18n.translate('auth.userNotFound'));
+    }
+
+    const updateData: any = {
+      name: dto.name ?? user.name,
+      phone: dto.phone ?? user.phone,
+    };
+
+    if (dto.address) {
+      updateData.address = {
+        province: dto.address.province ?? user.address?.province,
+        ward: dto.address.ward ?? user.address?.ward,
+        street: dto.address.street ?? user.address?.street,
+      };
+    }
+    if (dto.removeAvatar === true) {
+      if (user.avatarPublicId) {
+        await this.cloudinary.deleteImage(user.avatarPublicId);
+      }
+      updateData.avatar = '';
+      updateData.avatarPublicId = '';
+    }
+    if (dto.avatar && dto.avatar.startsWith('data:image/')) {
+      if (user.avatarPublicId) {
+        await this.cloudinary.deleteImage(user.avatarPublicId);
+      }
+      const uploaded = await this.cloudinary.uploadImage(dto.avatar, 'users');
+      updateData.avatar = uploaded.url;
+      updateData.avatarPublicId = uploaded.publicId;
+    }
+
+    return this.userModel
+      .findByIdAndUpdate(userId, updateData, { new: true })
+      .select('-password -usedRefreshTokens -otp -otpExpiresAt -otpAttempts')
+      .exec();
+  }
+
+  async changePassword(userId: string, dto: ChangePasswordDto) {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException(this.i18n.translate('auth.userNotFound'));
+    }
+
+    const isMatch = await bcrypt.compare(dto.oldPassword, user.password);
+    if (!isMatch) {
+      throw new UnauthorizedException(
+        this.i18n.translate('auth.invalidPassword'),
+      );
+    }
+
+    user.password = await bcrypt.hash(dto.newPassword, 10);
+    user.usedRefreshTokens = [];
+    user.otp = undefined;
+    user.otpExpiresAt = undefined;
+    user.otpAttempts = 0;
+
+    await user.save();
     return true;
   }
 }
