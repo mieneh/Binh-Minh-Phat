@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import { applicantService } from '@/lib/services/applicant.service';
 import { Recruitment } from '@/lib/services/recruitment.service';
 import { t } from '@/i18n';
+import { toast } from 'react-toastify';
 
 type Province = {
   code: number;
@@ -101,6 +102,8 @@ export function JobApplicationModal({
         setSubmitted(false);
         onClose();
       }, 2000);
+    } catch (error: any) {
+      toast.error(error?.message);
     } finally {
       setSubmitting(false);
     }

@@ -3,5 +3,14 @@
     "updateSuccess": "Cập nhật ứng viên thành công",
     "deleteSuccess": "Xóa ứng viên thành công",
     "notFound": "Không tìm thấy ứng viên",
-    "duplicate": "Ứng viên đã tồn tại cho vị trí này"
+    "duplicate": "Bạn đã ứng tuyển cho vị trí này",
+    "mailSubject": "Có ứng viên mới ứng tuyển",
+    "info": "Thông tin liên hệ",
+    "fullName": "Họ và tên",
+    "phone": "Số điện thoại",
+    "position": "Vị trí ứng tuyển",
+    "experience": "Kinh nghiệm",
+    "year": "năm",
+    "shortProfile": "Mô tả ngắn của ứng viên",
+    "viewCV": "Xem CV"
 }

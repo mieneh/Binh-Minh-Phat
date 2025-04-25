@@ -2,5 +2,12 @@
     "createSuccess": "Gửi thông tin liên hệ thành công",
     "alreadySent": "Bạn đã gửi thông tin liên hệ trước đó",
     "notFound": "Không tìm thấy liên hệ",
-    "isReadSuccess": "Đã đánh dấu là đã đọc"
+    "isReadSuccess": "Đã đánh dấu là đã đọc",
+    "hi": "Xin chào",
+    "mailSubject": "Binh Minh Phat đã nhận được liên hệ của bạn",
+    "mailThanks": "Cảm ơn bạn đã liên hệ với Công ty May XNK Bình Minh Phát.",
+    "received": "Chúng tôi đã nhận được tin nhắn của bạn:",
+    "mailReplySoon": "Bộ phận phụ trách sẽ phản hồi trong thời gian sớm nhất.",
+    "thanks": "Trân trọng",
+    "company": "Bình Minh Phát"
 }

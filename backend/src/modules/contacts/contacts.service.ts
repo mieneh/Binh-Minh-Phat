@@ -8,6 +8,7 @@ import { Model } from 'mongoose';
 import { I18nService } from 'nestjs-i18n';
 import { Contact, ContactDocument } from 'src/schemas/contact.schema';
 import { CreateContactDto } from './dto/create-contact.dto';
+import { MailService } from 'src/common/mail/mail.service';
 
 @Injectable()
 export class ContactsService {
@@ -15,16 +16,34 @@ export class ContactsService {
     @InjectModel(Contact.name)
     private readonly contactModel: Model<ContactDocument>,
     private readonly i18n: I18nService,
+    private readonly mailService: MailService,
   ) {}
 
   async create(dto: CreateContactDto) {
     try {
-      return await this.contactModel.create({
+      const contact = await this.contactModel.create({
         ...dto,
         email: dto.email.toLowerCase().trim(),
         fullName: dto.fullName.trim(),
         message: dto.message.trim(),
       });
+      const messageHtml = dto.message
+        ? dto.message.replace(/\n/g, '<br/>')
+        : '';
+      await this.mailService.sendMail({
+        to: contact.email,
+        subject: this.i18n.translate('contact.mailSubject'),
+        html: `
+          <p>${this.i18n.translate('contact.hi')} <b>${contact.fullName}</b>,</p>
+          <p>${this.i18n.translate('contact.mailThanks')}</p>
+          <p>${this.i18n.translate('contact.received')}</p>
+          <blockquote>${messageHtml}</blockquote>
+          <p>${this.i18n.translate('contact.mailReplySoon')}</p>
+          <p>${this.i18n.translate('contact.thanks')},</p>
+          <p>${this.i18n.translate('contact.company')}</p>
+        `,
+      });
+      return contact;
     } catch (error: any) {
       if (error.code === 11000) {
         throw new BadRequestException(

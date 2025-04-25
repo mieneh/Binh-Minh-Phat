@@ -2,5 +2,12 @@
     "createSuccess": "Contact information submitted successfully",
     "alreadySent": "You have already submitted your contact information",
     "notFound": "Contact not found",
-    "isReadSuccess": "Marked as read"
+    "isReadSuccess": "Marked as read",
+    "hi": "Hi",
+    "mailSubject": "Binh Minh Phat has received your contact",
+    "mailThanks": "Thank you for reaching out to Bình Minh Phát Garment Import-Export Company.",
+    "received": "We have received your message:",
+    "mailReplySoon": "The responsible department will respond as soon as possible.",
+    "thanks": "Best regards",
+    "company": "Bình Minh Phát"
 }
