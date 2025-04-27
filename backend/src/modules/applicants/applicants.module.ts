@@ -5,6 +5,7 @@ import { Recruitment, RecruitmentSchema } from 'src/schemas/recruitment.schema';
 import { ApplicantsService } from './applicants.service';
 import { ApplicantsController } from './applicants.controller';
 import { MailModule } from 'src/common/mail/mail.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { MailModule } from 'src/common/mail/mail.module';
       { name: Recruitment.name, schema: RecruitmentSchema },
     ]),
     MailModule,
+    NotificationsModule,
   ],
   controllers: [ApplicantsController],
   providers: [ApplicantsService],

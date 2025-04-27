@@ -352,5 +352,15 @@
   "confirmPasswordPlaceholder": "Xác nhận mật khẩu mới",
   "passwordNotMatch": "Mật khẩu xác nhận không khớp",
   "pleaseFillAllRequiredFields": "Vui lòng điền vào tất cả các trường bắt buộc",
-  "changePasswordSuccess": "Đổi mật khẩu thành công!"
+  "changePasswordSuccess": "Đổi mật khẩu thành công!",
+
+  "notifications": "Thông báo",
+  "noNotifications": "Không có thông báo nào",
+  "viewAll": "Xem tất cả thông báo",
+  "markAsRead": "Đánh dấu đã đọc",
+  "markAllRead": "Đánh dấu đọc tất cả",
+  "deleteAll": "Xóa tất cả",
+  "unread": "Chưa đọc",
+  "new": "Mới",
+  "all": "Tất cả"
 }

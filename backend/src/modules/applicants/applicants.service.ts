@@ -14,6 +14,8 @@ import {
 import { CreateApplicantDto } from './dto/create-applicant.dto';
 import { UpdateApplicantDto } from './dto/update-applicant.dto';
 import { MailService } from 'src/common/mail/mail.service';
+import { NotificationsService } from 'src/modules/notifications/notifications.service';
+import { NotificationType } from 'src/schemas/notification.schema';
 
 @Injectable()
 export class ApplicantsService {
@@ -24,6 +26,7 @@ export class ApplicantsService {
     private readonly recruitmentModel: Model<RecruitmentDocument>,
     private readonly i18n: I18nService,
     private readonly mailService: MailService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   async create(dto: CreateApplicantDto) {
@@ -74,6 +77,12 @@ export class ApplicantsService {
             : ''
         }
       `,
+    });
+    await this.notificationsService.create({
+      title: `Ứng tuyển vị trí #${Math.floor(Math.random() * 1000)}`,
+      message: `${dto.fullName} applied for ${positionName}`,
+      type: NotificationType.APPLICANT,
+      refId: applicant._id.toString(),
     });
     return applicant;
   }

@@ -352,5 +352,15 @@
   "confirmPasswordPlaceholder": "Confirm new password",
   "passwordNotMatch": "Passwords do not match",
   "pleaseFillAllRequiredFields": "Please fill all required fields",
-  "changePasswordSuccess": "Password Changed Successfully!"
+  "changePasswordSuccess": "Password Changed Successfully!",
+
+  "notifications": "Notifications",
+  "noNotifications": "No notifications",
+  "viewAll": "View all notifications",
+  "markAsRead": "Mark as read",
+  "markAllRead": "Mark all as read",
+  "deleteAll": "Delete all",
+  "unread": "Unread",
+  "all": "All",
+  "new": "New"
 }

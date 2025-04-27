@@ -8,6 +8,7 @@ import { CircleUserRound, Menu, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import SignOutButton from '@/components/auth/SignOutButton';
+import NotificationBell from '@/components/common/NotificationBell';
 
 export default function Navbar() {
   const { user, loading } = useAuth();
@@ -100,6 +101,8 @@ export default function Navbar() {
         <div className="flex items-center gap-1">
           <LanguageSwitcher locales={['vi', 'en']} currentLocale={locale} />
           {!loading && user && (
+            <>
+            <NotificationBell locales={['vi', 'en']}/>
             <div className="relative hidden lg:block">
               <button
                 onClick={() => setOpenDropdown((v) => !v)}
@@ -134,6 +137,7 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+            </>
           )}
           <button
             onClick={() => setOpenMobile((p) => !p)}

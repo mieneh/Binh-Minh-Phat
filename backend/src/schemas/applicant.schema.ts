@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 import { Recruitment } from './recruitment.schema';
 
-export type ApplicantDocument = Applicant & Document;
+export type ApplicantDocument = Applicant &
+  Document & { _id: mongoose.Types.ObjectId };
 
 export enum ApplicantStatus {
   NEW = 'NEW',

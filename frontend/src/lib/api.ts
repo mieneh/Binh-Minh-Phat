@@ -42,7 +42,7 @@ export async function apiRequest<T = unknown>(path: string, options: FetchOption
   }
 
   if (!res.ok) {
-    let message: string = (Array.isArray(data?.message) ? data.message[0] : data?.message) || data?.error;
+    const message: string = (Array.isArray(data?.message) ? data.message[0] : data?.message) || data?.error;
     const error: any = new Error(message);
     error.status = res.status;
     error.data = data;

@@ -9,6 +9,8 @@ import { I18nService } from 'nestjs-i18n';
 import { Contact, ContactDocument } from 'src/schemas/contact.schema';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { MailService } from 'src/common/mail/mail.service';
+import { NotificationsService } from 'src/modules/notifications/notifications.service';
+import { NotificationType } from 'src/schemas/notification.schema';
 
 @Injectable()
 export class ContactsService {
@@ -17,6 +19,7 @@ export class ContactsService {
     private readonly contactModel: Model<ContactDocument>,
     private readonly i18n: I18nService,
     private readonly mailService: MailService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   async create(dto: CreateContactDto) {
@@ -42,6 +45,12 @@ export class ContactsService {
           <p>${this.i18n.translate('contact.thanks')},</p>
           <p>${this.i18n.translate('contact.company')}</p>
         `,
+      });
+      await this.notificationsService.create({
+        title: `Liên hệ từ website #${Math.floor(Math.random() * 1000)}`,
+        message: dto.fullName,
+        type: NotificationType.CONTACT,
+        refId: contact._id.toString(),
       });
       return contact;
     } catch (error: any) {
