@@ -9,6 +9,11 @@ export async function generateMetadata({ params }: {
     return {
         title: t(locale, 'title'),
         description: t(locale, 'description'),
+        icons: {
+            icon: "/logo.png",
+            shortcut: "/logo.png",
+            apple: "/logo.png",
+        },
     };
 }
 
