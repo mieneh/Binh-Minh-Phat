@@ -26,6 +26,9 @@ export default function PartnersPage() {
   const [deleteTarget, setDeleteTarget] = useState<Partner | null>(null);
   const [deleting, setDeleting] = useState(false);
 
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
+
   const fetchPartners = async () => {
     try {
       setLoading(true);
@@ -41,6 +44,11 @@ export default function PartnersPage() {
   useEffect(() => {
     fetchPartners();
   }, []);
+
+  const pagedPartners = partners.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
 
   const handleCreateClick = () => {
     setEditing(null);
@@ -168,10 +176,14 @@ export default function PartnersPage() {
 
       <PartnerTable
         locale={locale}
-        partners={partners}
+        partners={pagedPartners}
         onEdit={handleEditClick}
         onDelete={handleDeleteClick}
         onDetail={handleDetailClick}
+        page={page}
+        pageSize={pageSize}
+        total={partners.length}
+        onChange={setPage}
       />
 
       <PartnerModal

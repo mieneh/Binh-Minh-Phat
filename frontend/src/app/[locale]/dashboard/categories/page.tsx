@@ -25,6 +25,9 @@ export default function CategoriesPage() {
 
   const isEditing = Boolean(editing);
 
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
+
   const fetchCategories = async () => {
     try {
       setLoading(true);
@@ -40,6 +43,11 @@ export default function CategoriesPage() {
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  const pagedCategories = categories.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
 
   const handleCreateClick = () => {
     setEditing(null);
@@ -135,9 +143,13 @@ export default function CategoriesPage() {
 
       <CategoryTable
         locale={locale}
-        categories={categories}
+        categories={pagedCategories}
         onEdit={handleEditClick}
         onDelete={handleDeleteClick}
+        page={page}
+        pageSize={pageSize}
+        total={categories.length}
+        onChange={setPage}
       />
 
       <CategoryModal

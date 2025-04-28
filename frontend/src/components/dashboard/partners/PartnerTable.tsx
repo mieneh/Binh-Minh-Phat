@@ -4,6 +4,7 @@ import { t } from '@/i18n';
 import { Partner } from '@/lib/services/partner.service';
 import { GripHorizontal, Phone, Mail, Flame } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import Pagination from '@/components/common/Pagination';
 
 interface PartnerTableProps {
   locale: 'vi' | 'en';
@@ -11,6 +12,10 @@ interface PartnerTableProps {
   onEdit: (partner: Partner) => void;
   onDelete: (partner: Partner) => void;
   onDetail: (partner: Partner) => void;
+  page: number;
+  pageSize: number;
+  total: number;
+  onChange: (page: number) => void;
 }
 
 export default function PartnerTable({
@@ -19,6 +24,10 @@ export default function PartnerTable({
   onEdit,
   onDelete,
   onDetail,
+  page,
+  pageSize,
+  total,
+  onChange,
 }: PartnerTableProps) {
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm">
@@ -73,6 +82,13 @@ export default function PartnerTable({
           </table>
         </div>
       )}
+      <Pagination
+        locale={locale}
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        onChange={onChange}
+      />
     </div>
   );
 }

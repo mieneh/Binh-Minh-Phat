@@ -31,7 +31,7 @@ export function ConfirmModal({
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-80 text-center">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-100 text-center">
         <h2 className="text-xl font-semibold mb-3">{t(locale, titleKey)}</h2>
         <p className="text-sm text-gray-600 mb-5">{t(locale, descKey)}</p>
         <div className="flex justify-center gap-4">

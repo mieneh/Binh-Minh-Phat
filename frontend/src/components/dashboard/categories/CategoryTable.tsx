@@ -4,12 +4,17 @@ import { t } from '@/i18n';
 import { Category } from '@/lib/services/category.service';
 import { GripHorizontal } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import Pagination from '@/components/common/Pagination';
 
 interface CategoryTableProps {
   locale: 'vi' | 'en';
   categories: Category[];
   onEdit: (category: Category) => void;
   onDelete: (category: Category) => void;
+  page: number;
+  pageSize: number;
+  total: number;
+  onChange: (page: number) => void;
 }
 
 export default function CategoryTable({
@@ -17,6 +22,10 @@ export default function CategoryTable({
   categories,
   onEdit,
   onDelete,
+  page,
+  pageSize,
+  total,
+  onChange,
 }: CategoryTableProps) {
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm">
@@ -63,6 +72,13 @@ export default function CategoryTable({
           </table>
         </div>
       )}
+      <Pagination
+        locale={locale}
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        onChange={onChange}
+      />
     </div>
   );
 }

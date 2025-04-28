@@ -17,6 +17,9 @@ export default function ContactsPage() {
 
   const [detail, setDetail] = useState<Contact | null>(null);
 
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
+
   const fetchContacts = async () => {
     try {
       setLoading(true);
@@ -32,6 +35,11 @@ export default function ContactsPage() {
   useEffect(() => {
     fetchContacts();
   }, []);
+
+  const pagedContacts = contacts.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
 
   const handleDetailClick = async (c: Contact) => {
     setDetail(c);
@@ -59,8 +67,12 @@ export default function ContactsPage() {
 
       <ContactTable
         locale={locale}
-        contacts={contacts}
+        contacts={pagedContacts}
         onDetail={handleDetailClick}
+        page={page}
+        pageSize={pageSize}
+        total={contacts.length}
+        onChange={setPage}
       />
 
       <ContactModal

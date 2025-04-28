@@ -20,7 +20,10 @@ export default function ApplicantsPage() {
 
   const [deleteTarget, setDeleteTarget] = useState<Applicant | null>(null);
   const [deleting, setDeleting] = useState(false);
-  
+
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
+
   const fetchApplicants = async () => {
     try {
       setLoading(true);
@@ -36,6 +39,11 @@ export default function ApplicantsPage() {
   useEffect(() => {
     fetchApplicants();
   }, []);
+
+  const pagedApplicants = applicants.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
 
   const handleChangeStatus = async (a: Applicant, status: Applicant['status']) => {
     try {
@@ -99,9 +107,13 @@ export default function ApplicantsPage() {
 
       <ApplicantTable
         locale={locale}
-        applicants={applicants}
+        applicants={pagedApplicants}
         onDetail={handleDetailClick}
         onDelete={handleDeleteClick}
+        page={page}
+        pageSize={pageSize}
+        total={applicants.length}
+        onChange={setPage}
       />
 
       <ApplicantModal

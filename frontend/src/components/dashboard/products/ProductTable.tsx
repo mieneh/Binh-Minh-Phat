@@ -4,6 +4,7 @@ import { t } from '@/i18n';
 import { Product } from '@/lib/services/product.service';
 import { GripHorizontal } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import Pagination from '@/components/common/Pagination';
 
 interface ProductTableProps {
     locale: 'vi' | 'en';
@@ -11,6 +12,10 @@ interface ProductTableProps {
     onEdit: (p: Product) => void;
     onDelete: (p: Product) => void;
     onDetail: (p: Product) => void;
+    page: number;
+    pageSize: number;
+    total: number;
+    onChange: (page: number) => void;
 }
 
 export default function ProductTable({
@@ -19,6 +24,10 @@ export default function ProductTable({
     onEdit,
     onDelete,
     onDetail,
+    page,
+    pageSize,
+    total,
+    onChange,
 }: ProductTableProps) {
     return (
         <div className="rounded-lg border bg-white p-4 shadow-sm">
@@ -68,6 +77,13 @@ export default function ProductTable({
                     </table>
                 </div>
             )}
+            <Pagination
+                locale={locale}
+                page={page}
+                pageSize={pageSize}
+                total={total}
+                onChange={onChange}
+            />
         </div>
     );
 }

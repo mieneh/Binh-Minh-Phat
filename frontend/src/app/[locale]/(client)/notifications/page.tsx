@@ -6,6 +6,7 @@ import { GripHorizontal, Bell, CheckCircle, Clock } from "lucide-react";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { emitNotificationUpdated } from "@/lib/events/notification";
 import { t } from "@/i18n";
+import { toast } from 'react-toastify';
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { notificationService, Notification, NotificationType } from "@/lib/services/notification.service";
@@ -61,15 +62,17 @@ export default function NotificationsPage() {
   };
 
   const deleteOne = async (id: string) => {
-    await notificationService.removeOne(id);
+    const res = await notificationService.removeOne(id);
     setNotifications((prev) => prev.filter((n) => n._id !== id));
     emitNotificationUpdated();
+    toast.success(res.message);
   };
 
   const deleteAll = async () => {
-    await notificationService.removeAll();
+    const res = await notificationService.removeAll();
     setNotifications([]);
     emitNotificationUpdated();
+    toast.success(res.message);
   };
 
   const formatDate = (d: string) =>

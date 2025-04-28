@@ -1,4 +1,6 @@
 import { apiRequest } from '@/lib/api';
+import { Category } from './category.service';
+import { Partner } from './partner.service';
 
 export interface Product {
     _id: string;
@@ -7,8 +9,8 @@ export interface Product {
     description?: string;
     image?: string;
     quantity?: number;
-    categoryId?: string;
-    partnerId?: string;
+    categoryId?: Category;
+    partnerId?: Partner;
     createdAt?: string;
     updatedAt?: string;
 }

@@ -3,17 +3,26 @@
 import { t } from '@/i18n';
 import { Contact } from '@/lib/services/contact.service';
 import { Eye, MailOpen, Mail } from 'lucide-react';
+import Pagination from '@/components/common/Pagination';
 
 interface ContactTableProps {
   locale: 'vi' | 'en';
   contacts: Contact[];
   onDetail: (c: Contact) => void;
+  page: number;
+  pageSize: number;
+  total: number;
+  onChange: (page: number) => void;
 }
 
 export default function ContactTable({
   locale,
   contacts,
   onDetail,
+  page,
+  pageSize,
+  total,
+  onChange,
 }: ContactTableProps) {
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm">
@@ -56,6 +65,13 @@ export default function ContactTable({
           </table>
         </div>
       )}
+      <Pagination
+        locale={locale}
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        onChange={onChange}
+      />
     </div>
   );
 }

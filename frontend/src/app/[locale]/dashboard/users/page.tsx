@@ -30,6 +30,9 @@ export default function UsersPage() {
   const [resetTarget, setResetTarget] = useState<User | null>(null);
   const [resetting, setResetting] = useState(false);
 
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
+
   const fetchUsers = async () => {
     try {
       setLoading(true);
@@ -45,6 +48,11 @@ export default function UsersPage() {
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  const pagedUsers = users.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
 
   const handleResetPassword = async () => {
     if (!resetTarget) return;
@@ -186,11 +194,15 @@ export default function UsersPage() {
 
       <UserTable
         locale={locale}
-        users={users}
+        users={pagedUsers}
         onResetPassword={(u) => setResetTarget(u)}
         onEdit={handleEditClick}
         onDelete={handleDeleteClick}
         onDetail={handleDetailClick}
+        page={page}
+        pageSize={pageSize}
+        total={users.length}
+        onChange={setPage}
       />
 
       <UserModal
@@ -204,9 +216,9 @@ export default function UsersPage() {
                 name: editing.name || '',
                 phone: editing.phone || '',
                 avatar: editing.avatar || '',
-                province: editing.address.province,
-                ward: editing.address.ward || '',
-                street: editing.address.street || '',
+                province: editing.address?.province || '',
+                ward: editing.address?.ward || '',
+                street: editing.address?.street || '',
                 role: editing.role || 'employee',
               }
             : undefined

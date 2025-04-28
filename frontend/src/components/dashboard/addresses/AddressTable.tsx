@@ -4,6 +4,7 @@ import { t } from '@/i18n';
 import { Address } from '@/lib/services/address.service';
 import { GripHorizontal } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import Pagination from '@/components/common/Pagination';
 
 interface AddressTableProps {
   locale: 'vi' | 'en';
@@ -11,6 +12,10 @@ interface AddressTableProps {
   onEdit: (a: Address) => void;
   onDelete: (a: Address) => void;
   onDetail: (a: Address) => void;
+  page: number;
+  pageSize: number;
+  total: number;
+  onChange: (page: number) => void;
 }
 
 export default function AddressTable({ 
@@ -18,7 +23,11 @@ export default function AddressTable({
   addresses, 
   onEdit, 
   onDelete, 
-  onDetail 
+  onDetail,
+  page,
+  pageSize,
+  total,
+  onChange,
 }: AddressTableProps) {
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm">
@@ -68,6 +77,13 @@ export default function AddressTable({
           </table>
         </div>
       )}
+      <Pagination
+        locale={locale}
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        onChange={onChange}
+      />
     </div>
   );
 }

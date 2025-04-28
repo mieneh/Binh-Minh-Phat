@@ -362,5 +362,8 @@
   "deleteAll": "Delete all",
   "unread": "Unread",
   "all": "All",
-  "new": "New"
+  "new": "New",
+
+  "prev": "Prev",
+  "next": "Next"
 }

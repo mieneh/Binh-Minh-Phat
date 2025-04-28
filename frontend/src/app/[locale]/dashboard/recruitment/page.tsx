@@ -62,6 +62,9 @@ export default function RecruitmentsPage() {
 
   const [loading, setLoading] = useState(true);
 
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
+
   // ================= FETCH =================
   const fetchData = async () => {
     try {
@@ -84,6 +87,21 @@ export default function RecruitmentsPage() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const pagedDepartments = departments.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
+
+  const pagedPositions = positions.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
+
+  const pagedRecruitments = recruitments.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
 
   // ================= DEPARTMENT =================
   const handleCreateDepartmentClick = () => {
@@ -413,9 +431,13 @@ export default function RecruitmentsPage() {
 
           <DepartmentTable
             locale={locale}
-            departments={departments}
+            departments={pagedDepartments}
             onEdit={handleEditDepartmentClick}
             onDelete={handleDeleteDepartmentClick}
+            page={page}
+            pageSize={pageSize}
+            total={departments.length}
+            onChange={setPage}
           />
 
           <DepartmentModal
@@ -457,10 +479,14 @@ export default function RecruitmentsPage() {
 
           <PositionTable
             locale={locale}
-            positions={positions}
+            positions={pagedPositions}
             onEdit={handleEditPositionClick}
             onDelete={handleDeletePositionClick}
             onDetail={handleDetailPositionClick}
+            page={page}
+            pageSize={pageSize}
+            total={positions.length}
+            onChange={setPage}
           />
 
           <PositionModal
@@ -510,11 +536,15 @@ export default function RecruitmentsPage() {
 
           <RecruitmentTable
             locale={locale}
-            recruitments={recruitments}
+            recruitments={pagedRecruitments}
             onEdit={handleEditRecruitmentClick}
             onClose={handleCloseRecruitmentClick}
             onDelete={handleDeleteRecruitmentClick}
             onDetail={handleDetailRecruitmentClick}
+            page={page}
+            pageSize={pageSize}
+            total={recruitments.length}
+            onChange={setPage}
           />
 
           <RecruitmentModal

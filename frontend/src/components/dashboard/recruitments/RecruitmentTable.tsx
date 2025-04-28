@@ -4,6 +4,7 @@ import { t } from '@/i18n';
 import { Recruitment } from '@/lib/services/recruitment.service';
 import { GripHorizontal } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import Pagination from '@/components/common/Pagination';
 
 interface RecruitmentTableProps {
   locale: 'vi' | 'en';
@@ -12,6 +13,10 @@ interface RecruitmentTableProps {
   onClose: (r: Recruitment) => void;
   onDelete: (r: Recruitment) => void;
   onDetail: (r: Recruitment) => void;
+  page: number;
+  pageSize: number;
+  total: number;
+  onChange: (page: number) => void;
 }
 
 export default function RecruitmentTable({
@@ -21,6 +26,10 @@ export default function RecruitmentTable({
   onClose,
   onDelete,
   onDetail,
+  page,
+  pageSize,
+  total,
+  onChange,
 }: RecruitmentTableProps) {
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm">
@@ -87,6 +96,13 @@ export default function RecruitmentTable({
           </table>
         </div>
       )}
+      <Pagination
+        locale={locale}
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        onChange={onChange}
+      />
     </div>
   );
 }

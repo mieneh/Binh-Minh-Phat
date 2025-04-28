@@ -26,6 +26,9 @@ export default function CompaniesPage() {
   const [deleteTarget, setDeleteTarget] = useState<Address | null>(null);
   const [deleting, setDeleting] = useState(false);
 
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
+
   const fetchAddresses = async () => {
     try {
       setLoading(true);
@@ -41,6 +44,11 @@ export default function CompaniesPage() {
   useEffect(() => {
     fetchAddresses();
   }, []);
+
+  const pagedAddresses = addresses.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
 
   const handleCreateClick = () => {
     setEditing(null);
@@ -162,10 +170,14 @@ export default function CompaniesPage() {
 
       <AddressTable
         locale={locale}
-        addresses={addresses}
+        addresses={pagedAddresses}
         onEdit={handleEditClick}
         onDelete={handleDeleteClick}
         onDetail={handleDetailClick}
+        page={page}
+        pageSize={pageSize}
+        total={addresses.length}
+        onChange={setPage}
       />
 
       <AddressModal

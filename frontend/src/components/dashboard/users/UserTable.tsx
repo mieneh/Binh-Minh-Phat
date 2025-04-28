@@ -2,8 +2,9 @@
 
 import { t } from '@/i18n';
 import { User } from '@/lib/services/user.service';
-import { GripHorizontal, KeyRound } from 'lucide-react';
+import { GripHorizontal } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import Pagination from '@/components/common/Pagination';
 
 interface UserTableProps {
   locale: 'vi' | 'en';
@@ -12,6 +13,10 @@ interface UserTableProps {
   onDelete: (user: User) => void;
   onDetail: (user: User) => void;
   onResetPassword: (user: User) => void;
+  page: number;
+  pageSize: number;
+  total: number;
+  onChange: (page: number) => void;
 }
 
 export default function UserTable({
@@ -21,6 +26,10 @@ export default function UserTable({
   onDelete,
   onDetail,
   onResetPassword,
+  page,
+  pageSize,
+  total,
+  onChange,
 }: UserTableProps) {
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm">
@@ -75,6 +84,13 @@ export default function UserTable({
           </table>
         </div>
       )}
+      <Pagination
+        locale={locale}
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        onChange={onChange}
+      />
     </div>
   );
 }

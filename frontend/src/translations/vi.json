@@ -362,5 +362,8 @@
   "deleteAll": "Xóa tất cả",
   "unread": "Chưa đọc",
   "new": "Mới",
-  "all": "Tất cả"
+  "all": "Tất cả",
+
+  "prev": "Trước",
+  "next": "Sau"
 }

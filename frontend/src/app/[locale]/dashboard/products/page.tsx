@@ -26,6 +26,9 @@ export default function ProductsPage() {
   const [deleteTarget, setDeleteTarget] = useState<Product | null>(null);
   const [deleting, setDeleting] = useState(false);
 
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
+
   const fetchProducts = async () => {
     try {
       setLoading(true);
@@ -41,6 +44,11 @@ export default function ProductsPage() {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  const pagedProducts = products.slice(
+    (page - 1) * pageSize,
+    page * pageSize
+  );
 
   const handleCreateClick = () => {
     setEditing(null);
@@ -164,10 +172,14 @@ export default function ProductsPage() {
 
       <ProductTable
         locale={locale}
-        products={products}
+        products={pagedProducts}
         onEdit={handleEditClick}
         onDelete={handleDeleteClick}
         onDetail={handleDetailClick}
+        page={page}
+        pageSize={pageSize}
+        total={products.length}
+        onChange={setPage}
       />
 
       <ProductModal
