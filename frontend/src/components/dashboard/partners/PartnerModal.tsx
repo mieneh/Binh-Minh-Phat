@@ -2,6 +2,7 @@
 
 import Modal from '@/components/common/Modal';
 import { t } from '@/i18n';
+import Image from 'next/image'
 import PartnerForm from './PartnerForm';
 import type { Partner } from '@/lib/services/partner.service';
 import { Phone, Mail, Flame } from 'lucide-react';
@@ -26,7 +27,7 @@ interface PartnerModalProps {
   onClose: () => void;
   onSubmit: (values: {
     name: string;
-    logo: string;
+    logo?: string;
     website: string;
     address: string;
     phone: string;
@@ -65,7 +66,7 @@ export default function PartnerModal({
           {partner.logo && (
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 overflow-hidden rounded-full border bg-gray-50">
-                <img src={partner.logo} alt={partner.name} className="h-full w-full object-cover" />
+                <Image src={partner.logo} alt={partner.name} className="h-full w-full object-cover" />
               </div>
               <div>
                 <div className="font-semibold">{partner.name}</div>

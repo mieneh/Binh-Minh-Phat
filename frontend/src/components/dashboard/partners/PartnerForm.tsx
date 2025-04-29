@@ -2,6 +2,7 @@
 
 import { useEffect, useState, FormEvent } from 'react';
 import { t } from '@/i18n';
+import Image from 'next/image'
 import imageCompression from 'browser-image-compression';
 import { Plus, Upload } from 'lucide-react';
 
@@ -21,7 +22,7 @@ interface PartnerFormProps {
   submitting: boolean;
   onSubmit: (values: {
     name: string;
-    logo: string;
+    logo?: string;
     website: string;
     address: string;
     phone: string;
@@ -83,7 +84,17 @@ export default function PartnerForm({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    const payload: any = {
+    const payload: {
+      name: string;
+      website: string;
+      address: string;
+      phone: string;
+      email: string;
+      hotline: string;
+      note: string;
+      removeLogo?: boolean;
+      logo?: string;
+    } = {
       name,
       website,
       address,
@@ -110,7 +121,7 @@ export default function PartnerForm({
             <div className="relative group aspect-square w-full max-w-[180px] md:max-w-[120px]">
               {logo ? (
                 <>
-                  <img src={logo} alt="Preview" className="h-full w-full object-cover rounded-lg border"/>
+                  <Image src={logo} alt="Preview" className="h-full w-full object-cover rounded-lg border"/>
                   <label className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-lg bg-black/40 opacity-0 transition group-hover:opacity-100">
                     <span className="text-sm font-medium text-white"><Upload /></span>
                     <input

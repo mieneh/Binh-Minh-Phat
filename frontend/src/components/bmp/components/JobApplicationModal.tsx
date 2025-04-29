@@ -102,8 +102,9 @@ export function JobApplicationModal({
         setSubmitted(false);
         onClose();
       }, 2000);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setSubmitting(false);
     }

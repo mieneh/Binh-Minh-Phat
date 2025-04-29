@@ -34,8 +34,9 @@ export default function ProductsPage() {
       setLoading(true);
       const res = await productService.getAll();
       setProducts(res.data || []);
-    } catch (error: any) {
-      toast.error(error || t(locale, 'fetchErrorProduct'));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, 'fetchErrorProduct'));
     } finally {
       setLoading(false);
     }
@@ -84,7 +85,7 @@ export default function ProductsPage() {
     lot: string;
     name: string;
     description: string;
-    image: string;
+    image?: string;
     quantity: number;
     categoryId: string;
     partnerId: string;
@@ -114,8 +115,9 @@ export default function ProductsPage() {
           setModalOpen(false);
           setEditing(null);
           setModalMode('create');
-        } catch (error: any) {
-          toast.error(error?.message);
+        } catch (error: unknown) {
+          const message = error instanceof Error ? error.message : 'An error occurred';
+          toast.error(message);
         } finally {
           setSaving(false);
         }
@@ -133,8 +135,9 @@ export default function ProductsPage() {
       toast.success(res.message);
       await fetchProducts();
       setDeleteTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setDeleting(false);
     }

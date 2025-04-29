@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 
-export type NotificationDocument = Notification & Document;
+export type NotificationDocument = Notification & 
+  Document & { _id: mongoose.Types.ObjectId };
 
 export enum NotificationType {
   APPLICANT = 'APPLICANT',

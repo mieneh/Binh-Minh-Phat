@@ -1,7 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { authService, User, SigninResponse, SignoutResponse } from '@/lib/services/auth.service';
+import { authService, SigninResponse, SignoutResponse } from '@/lib/services/auth.service';
+import { User } from '@/lib/services/user.service'
 
 export interface AuthContextType {
   user: User | null;

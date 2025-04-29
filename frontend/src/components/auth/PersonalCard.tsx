@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image'
 import { User } from '@/lib/services/user.service';
 import { Mail, Phone, MapPin, User as UserIcon, } from 'lucide-react';
 
@@ -15,7 +16,7 @@ export default function PersonalCard({ user, t, locale }: Props) {
     <div className="mx-auto bg-white border rounded-xl shadow-md p-6 flex flex-col md:flex-row md:items-start gap-6">
       <div className="flex flex-col items-center text-center">
         {user.avatar ? (
-          <img src={user.avatar} alt="Avatar" className="w-60 h-60 rounded-full border-2 border-emerald-600 object-cover" />
+          <Image src={user.avatar} alt="Avatar" className="w-60 h-60 rounded-full border-2 border-emerald-600 object-cover" />
         ) : (
           <div className="w-60 h-60 flex items-center justify-center rounded-full bg-gray-100 border-2 border-gray-200">
             <UserIcon className="w-12 h-12 text-gray-400" />

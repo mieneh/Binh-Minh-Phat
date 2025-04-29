@@ -33,8 +33,9 @@ export default function CategoriesPage() {
       setLoading(true);
       const res = await categoryService.getAll();
       setCategories(res.data || []);
-    } catch (error: any) {
-      toast.error(error || t(locale, 'fetchErrorCategory'));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, 'fetchErrorCategory'));
     } finally {
       setLoading(false);
     }
@@ -85,8 +86,9 @@ export default function CategoriesPage() {
       await fetchCategories();
       setModalOpen(false);
       setEditing(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setSaving(false);
     }
@@ -104,8 +106,9 @@ export default function CategoriesPage() {
       toast.success(res.message);
       await fetchCategories();
       setDeleteTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setDeleting(false);
     }

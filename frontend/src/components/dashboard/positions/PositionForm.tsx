@@ -50,7 +50,9 @@ export default function PositionForm({
     setDepartmentId(
       typeof initialValues?.departmentId === 'string'
         ? initialValues.departmentId
-        : (initialValues?.departmentId as any)?._id || ''
+        : (initialValues?.departmentId && typeof initialValues.departmentId === 'object' && '_id' in initialValues.departmentId)
+          ? (initialValues.departmentId as { _id: string })._id
+          : ''
     );
     setDescription(initialValues?.description || '');
     setRequirement(initialValues?.requirement || '');

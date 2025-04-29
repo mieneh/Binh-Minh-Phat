@@ -27,8 +27,9 @@ export default function SignInForm() {
       const next = searchParams.get('next');
       if (next) router.push(`/${locale}${next}`);
       else router.push(`/${locale}`);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setPending(false);
     }

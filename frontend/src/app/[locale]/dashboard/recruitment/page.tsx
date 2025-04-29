@@ -77,8 +77,9 @@ export default function RecruitmentsPage() {
       setDepartments(deptRes.data || []);
       setPositions(posRes.data || []);
       setRecruitments(recRes.data || []);
-    } catch (error: any) {
-      toast.error(error?.message || t(locale, "fetchError"));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, "fetchError"));
     } finally {
       setLoading(false);
     }
@@ -140,8 +141,9 @@ export default function RecruitmentsPage() {
       await fetchData();
       setDepartmentModalOpen(false);
       setEditingDepartment(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setSavingDepartment(false);
     }
@@ -159,8 +161,9 @@ export default function RecruitmentsPage() {
       toast.success(res.message);
       await fetchData();
       setDeleteDepartmentTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setDeletingDepartment(false);
     }
@@ -229,8 +232,9 @@ export default function RecruitmentsPage() {
       setPositionModalOpen(false);
       setEditingPosition(null);
       setPositionModalMode("create");
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setSavingPosition(false);
     }
@@ -248,8 +252,9 @@ export default function RecruitmentsPage() {
       toast.success(res.message);
       await fetchData();
       setDeletePositionTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setDeletingPosition(false);
     }
@@ -323,8 +328,9 @@ export default function RecruitmentsPage() {
       setRecruitmentModalOpen(false);
       setEditingRecruitment(null);
       setRecruitmentModalMode("create");
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setSavingRecruitment(false);
     }
@@ -342,8 +348,9 @@ export default function RecruitmentsPage() {
       toast.success(res.message);
       await fetchData();
       setCloseRecruitmentTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setClosingRecruitment(false);
     }
@@ -366,8 +373,9 @@ export default function RecruitmentsPage() {
       toast.success(res.message);
       await fetchData();
       setDeleteRecruitmentTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setDeletingRecruitment(false);
     }

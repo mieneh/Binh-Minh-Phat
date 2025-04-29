@@ -4,6 +4,7 @@ import { Facebook, Phone, Globe } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { t } from '@/i18n';
+import Image from 'next/image'
 import { addressService, Address } from '@/lib/services/address.service';
 
 export default function Footer() {
@@ -13,7 +14,10 @@ export default function Footer() {
 
   const fetchAddresses = async () => {
     const res = await addressService.getAll();
-    setAddresses(res.data || []);  
+    const sorted = (res.data || []).sort(
+      (a, b) => new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime()
+    );
+    setAddresses(sorted);
   };
 
   useEffect(() => {
@@ -25,7 +29,7 @@ export default function Footer() {
       <footer className="w-full bg-white shadow-sm mt-1 backdrop-blur-sm z-50 border-t-2 border-gray-200 px-6 py-6 md:py-8 lg:px-12">
         <div className="mx-auto grid gap-8 md:grid-cols-3">
           <div className="text-center flex flex-col items-center">
-            <img src="/logo.png" alt="Bình Minh Phát" className="max-w-[120px] mb-3"/>
+            <Image src="/logo.png" alt="Bình Minh Phát" width={120} height={60} className="mb-3" priority />
             <p className="text-sm text-slate-700 mb-4">
               {t(locale, 'slogan')}
             </p>

@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 import { Department } from './department.schema';
 
-export type PositionDocument = Position & Document;
+export type PositionDocument = Position & 
+  Document & { _id: mongoose.Types.ObjectId };
 
 @Schema({ timestamps: true })
 export class Position {

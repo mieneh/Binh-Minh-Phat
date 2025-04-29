@@ -34,8 +34,9 @@ export default function CompaniesPage() {
       setLoading(true);
       const res = await addressService.getAll();
       setAddresses(res.data || []);
-    } catch (error: any) {
-      toast.error(error || t(locale, 'fetchErrorAddress'));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, 'fetchErrorAddress'));
     } finally {
       setLoading(false);
     }
@@ -112,8 +113,9 @@ export default function CompaniesPage() {
       setModalOpen(false);
       setEditing(null);
       setModalMode('create');
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setSaving(false);
     }
@@ -131,8 +133,9 @@ export default function CompaniesPage() {
       toast.success(res.message);
       await fetchAddresses();
       setDeleteTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setDeleting(false);
     }

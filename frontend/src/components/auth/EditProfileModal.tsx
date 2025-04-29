@@ -2,6 +2,7 @@
 
 import { useEffect, useState, FormEvent } from "react";
 import { t } from "@/i18n";
+import Image from "next/image";
 import Modal from "@/components/common/Modal";
 import { User } from "@/lib/services/user.service";
 import imageCompression from "browser-image-compression";
@@ -80,9 +81,18 @@ export default function EditProfileModal({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const payload: any = {
+    const payload: {
+      name: string;
+      phone: string;
+      avatar: string;
+      province: string;
+      ward: string;
+      street: string;
+      removeAvatar?: boolean;
+    } = {
       name,
       phone,
+      avatar: avatar || "",
       province,
       ward,
       street,
@@ -122,7 +132,7 @@ export default function EditProfileModal({
               <div className="relative group aspect-square w-full max-w-[180px] md:max-w-[202px]">
                 {avatar ? (
                   <>
-                    <img
+                    <Image
                       src={avatar}
                       alt="Preview"
                       className="h-full w-full rounded-lg border object-cover"

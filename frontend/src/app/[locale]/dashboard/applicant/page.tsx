@@ -29,8 +29,9 @@ export default function ApplicantsPage() {
       setLoading(true);
       const res = await applicantService.getAll();
       setApplicants(res.data || []);
-    } catch (e: any) {
-      toast.error(e?.message || t(locale, 'fetchErrorApplicant'));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, 'fetchErrorApplicant'));
     } finally {
       setLoading(false);
     }
@@ -50,8 +51,9 @@ export default function ApplicantsPage() {
       await applicantService.update(a._id, { status });
       toast.success(t(locale, 'updateSuccess'));
       fetchApplicants();
-    } catch (e: any) {
-      toast.error(e?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     }
   };
 
@@ -77,8 +79,9 @@ export default function ApplicantsPage() {
       toast.success(res.message);
       await fetchApplicants();
       setDeleteTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setDeleting(false);
     }

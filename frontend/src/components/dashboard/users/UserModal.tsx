@@ -2,9 +2,10 @@
 
 import Modal from '@/components/common/Modal';
 import { t } from '@/i18n';
+import Image from 'next/image'
 import UserForm from './UserForm';
 import type { User } from '@/lib/services/user.service';
-import { Image } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface UserModalProps {
   locale: 'vi' | 'en';
@@ -28,7 +29,7 @@ interface UserModalProps {
     email: string;
     name: string;
     phone: string;
-    avatar: string;
+    avatar?: string;
     province: string;
     ward: string;
     street: string;
@@ -64,9 +65,9 @@ export default function UserModal({
         <div className="space-y-4 text-sm">
           <div className="flex items-center gap-4">
             {user.avatar ? (
-              <img src={user.avatar} alt={user.name} className="h-14 w-14 rounded-lg object-cover border" />
+              <Image src={user.avatar} alt={user.name || 'User avatar'} className="h-14 w-14 rounded-lg object-cover border" />
             ) : (
-              <div className="h-14 w-14 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400"><Image /></div>
+              <div className="h-14 w-14 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400"><X /></div>
             )}
             <div>
               <div className="font-semibold text-base">{user.name}</div>

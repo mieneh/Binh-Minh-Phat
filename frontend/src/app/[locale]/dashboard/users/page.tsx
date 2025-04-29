@@ -38,8 +38,9 @@ export default function UsersPage() {
       setLoading(true);
       const res = await userService.getAll();
       setUsers(res.data || []);
-    } catch (error: any) {
-      toast.error(error || t(locale, 'fetchErrorUser'));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, 'fetchErrorUser'));
     } finally {
       setLoading(false);
     }
@@ -61,8 +62,9 @@ export default function UsersPage() {
       const res = await userService.resetPassword(resetTarget._id);
       toast.success(`${t(locale, 'newPassword')}: ${res.data.newPassword}`);
       setResetTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setResetting(false);
     }
@@ -102,7 +104,7 @@ export default function UsersPage() {
     email: string;
     name: string;
     phone: string;
-    avatar: string;
+    avatar?: string;
     province: string;
     ward: string;
     street: string;
@@ -136,8 +138,9 @@ export default function UsersPage() {
       setModalOpen(false);
       setEditing(null);
       setModalMode('create');
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setSaving(false);
     }
@@ -155,8 +158,9 @@ export default function UsersPage() {
       toast.success(res.message);
       await fetchUsers();
       setDeleteTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setDeleting(false);
     }

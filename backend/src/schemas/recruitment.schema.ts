@@ -1,9 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 import { Position } from './position.schema';
 import { Address } from './address.schema';
 
-export type RecruitmentDocument = Recruitment & Document;
+export type RecruitmentDocument = Recruitment & 
+  Document & { _id: mongoose.Types.ObjectId };
 
 @Schema({ timestamps: true })
 export class Recruitment {

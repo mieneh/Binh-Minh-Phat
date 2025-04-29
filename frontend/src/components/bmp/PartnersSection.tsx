@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
 import { Quote } from 'lucide-react';
 import { t } from '@/i18n';
+import Image from 'next/image'
 import { partnerService, Partner } from '@/lib/services/partner.service';
 
 export default function PartnersSection() {
@@ -66,13 +67,15 @@ export default function PartnersSection() {
           <div ref={trackRef} className="flex items-center w-max" style={{ willChange: 'transform' }} >
             {[...partners, ...partners].map((partner, index) => {
               return (
-                <div key={`${partner._id}-${index}`} className="flex items-center justify-center min-w-[160px] h-20">
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    loading="lazy"
-                    className="max-h-20 object-contain opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
-                  />
+                <div key={`${partner._id}-${index}`} className="relative w-24 h-24 mx-4">
+                  {partner.logo && (
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      fill
+                      className="object-contain grayscale opacity-50 transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                    />
+                  )}
                 </div>
               );
             })}

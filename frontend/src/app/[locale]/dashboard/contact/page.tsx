@@ -25,8 +25,9 @@ export default function ContactsPage() {
       setLoading(true);
       const res = await contactService.getAll();
       setContacts(res.data || []);
-    } catch (error: any) {
-      toast.error(error?.message || t(locale, 'fetchErrorContact'));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, 'fetchErrorContact'));
     } finally {
       setLoading(false);
     }

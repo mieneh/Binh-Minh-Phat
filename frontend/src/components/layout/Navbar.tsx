@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { t } from '@/i18n';
+import Image from 'next/image'
 import { CircleUserRound, Menu, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import LanguageSwitcher from '@/components/common/LanguageSwitcher';
@@ -80,7 +81,7 @@ export default function Navbar() {
     <header className="sticky top-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-200 shadow-sm">
       <div className="flex items-center justify-between px-4 lg:px-10 py-3">
         <Link href={`/${locale}`} className="flex items-center gap-2">
-          <img src="/logo.png" alt="Bình Minh Phát" className="h-16 w-auto" />
+          <Image src="/logo.png" alt="Bình Minh Phát" width={200} height={60} priority className="h-16 w-auto" />
         </Link>
         <nav className="hidden lg:flex items-center gap-6">
           {links.map((link) => (

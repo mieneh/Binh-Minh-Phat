@@ -34,8 +34,9 @@ export default function PartnersPage() {
       setLoading(true);
       const res = await partnerService.getAll();
       setPartners(res.data || []);
-    } catch (error: any) {
-      toast.error(error || t(locale, 'fetchErrorParter'));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, 'fetchErrorParter'));
     } finally {
       setLoading(false);
     }
@@ -82,7 +83,7 @@ export default function PartnersPage() {
 
   const handleSave = async (values: {
     name: string;
-    logo: string;
+    logo?: string;
     website: string;
     address: string;
     phone: string;
@@ -118,8 +119,9 @@ export default function PartnersPage() {
       setModalOpen(false);
       setEditing(null);
       setModalMode('create');
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setSaving(false);
     }
@@ -137,8 +139,9 @@ export default function PartnersPage() {
       toast.success(res.message);
       await fetchPartners();
       setDeleteTarget(null);
-    } catch (error: any) {
-      toast.error(error?.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message);
     } finally {
       setDeleting(false);
     }

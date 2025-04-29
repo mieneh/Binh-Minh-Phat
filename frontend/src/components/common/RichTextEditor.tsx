@@ -25,7 +25,7 @@ export default function RichTextEditor({ value, onChange }: Props) {
         if (!editor) return;
         const current = editor.getHTML();
         if (value !== current) {
-            editor.commands.setContent(value || '', false); // false = không reset history
+            editor.commands.setContent(value || '');
         }
     }, [value, editor]);
 

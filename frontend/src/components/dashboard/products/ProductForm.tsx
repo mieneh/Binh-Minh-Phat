@@ -2,6 +2,7 @@
 
 import { useEffect, useState, FormEvent } from 'react';
 import { t } from '@/i18n';
+import Image from 'next/image'
 import imageCompression from 'browser-image-compression';
 import { categoryService, Category } from '@/lib/services/category.service';
 import { partnerService, Partner } from '@/lib/services/partner.service';
@@ -24,7 +25,7 @@ interface ProductFormProps {
     lot: string;
     name: string;
     description: string;
-    image: string;
+    image?: string;
     quantity: number;
     categoryId: string;
     partnerId: string;
@@ -65,12 +66,16 @@ export default function ProductForm({
     setCategoryId(
       typeof initialValues?.categoryId === 'string'
         ? initialValues.categoryId
-        : (initialValues?.categoryId as any)?._id || ''
+        : (initialValues?.categoryId && typeof initialValues.categoryId === 'object' && '_id' in initialValues.categoryId)
+          ? (initialValues.categoryId as { _id: string })._id
+          : ''
     );
     setPartnerId(
       typeof initialValues?.partnerId === 'string'
         ? initialValues.partnerId
-        : (initialValues?.partnerId as any)?._id || ''
+        : (initialValues?.partnerId && typeof initialValues.partnerId === 'object' && '_id' in initialValues.partnerId)
+          ? (initialValues.partnerId as { _id: string })._id
+          : ''
     );
     setRemoveImage(false);
     setOriginal(initialValues);
@@ -96,7 +101,16 @@ export default function ProductForm({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!lot.trim() && !name.trim()) return;
-    const payload: any = {
+    const payload: {
+      lot: string;
+      name: string;
+      description: string;
+      quantity: number;
+      categoryId: string;
+      partnerId: string;
+      removeImage?: boolean;
+      image?: string;
+    } = {
       lot,
       name,
       description,
@@ -122,7 +136,7 @@ export default function ProductForm({
             <div className="relative group aspect-[2/3] w-36 md:w-72">
               {image ? (
                 <>
-                  <img src={image} alt="Preview" className="h-full w-full object-cover rounded-lg border"/>
+                  <Image src={image} alt="Preview" className="h-full w-full object-cover rounded-lg border"/>
                   <label className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-lg bg-black/40 opacity-0 transition group-hover:opacity-100">
                     <span className="text-sm font-medium text-white"><Upload /></span>
                     <input

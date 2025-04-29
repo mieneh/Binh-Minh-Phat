@@ -1,7 +1,17 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/company-garment/image/upload/**',
+      },
+    ],
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

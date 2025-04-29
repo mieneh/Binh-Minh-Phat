@@ -2,6 +2,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { t } from '@/i18n';
+import Image from 'next/image'
 import imageCompression from 'browser-image-compression';
 import { Plus, Upload } from 'lucide-react';
 
@@ -34,7 +35,7 @@ interface UserFormProps {
     email: string;
     name: string;
     phone: string;
-    avatar: string;
+    avatar?: string;
     province: string;
     ward: string;
     street: string;
@@ -63,7 +64,7 @@ export default function UserForm({
   const [province, setProvince] = useState('');
   const [ward, setWard] = useState('');
   const [street, setStreet] = useState('');
-  const [role, setRole] = useState('employee');
+  const [role, setRole] = useState<'admin' | 'employee'>('employee');
 
   const [original, setOriginal] = useState(initialValues);
 
@@ -130,14 +131,24 @@ export default function UserForm({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!email.trim() && !name.trim()) return;
-    const payload: any = { 
+    const payload: {
+      email: string;
+      name: string;
+      phone: string;
+      avatar?: string;
+      province: string;
+      ward: string;
+      street: string;
+      role: 'admin' | 'employee';
+      removeAvatar?: boolean;
+    } = {
       email, 
       name, 
       phone, 
       province, 
       ward, 
       street, 
-      role 
+      role,
     };
     if (removeAvatar) {
       payload.removeAvatar = true;
@@ -157,7 +168,7 @@ export default function UserForm({
             <div className="relative group aspect-square w-full max-w-[180px] md:max-w-[202px]">
               {avatar ? (
                 <>
-                  <img src={avatar} alt="Preview" className="h-full w-full rounded-lg border object-cover"/>
+                  <Image src={avatar} alt="Preview" className="h-full w-full rounded-lg border object-cover"/>
                   <label className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-lg bg-black/40 opacity-0 transition group-hover:opacity-100">
                     <span className="text-sm font-medium text-white"><Upload /></span>
                     <input
@@ -248,7 +259,7 @@ export default function UserForm({
             <select
               className="mt-1 w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-emerald-500"
               value={role}
-              onChange={(e) => setRole(e.target.value)}
+              onChange={(e) => setRole(e.target.value as 'admin' | 'employee')}
               required
             >
               <option value="employee">{t(locale, 'employee')}</option>

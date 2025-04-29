@@ -3,8 +3,9 @@
 import Modal from '@/components/common/Modal';
 import ProductForm from './ProductForm';
 import { t } from '@/i18n';
+import Image from 'next/image'
 import { Product } from '@/lib/services/product.service';
-import { Image, Phone, Mail, Flame } from 'lucide-react';
+import { Phone, Mail, Flame } from 'lucide-react';
 
 interface ProductModalProps {
   locale: 'vi' | 'en';
@@ -27,7 +28,7 @@ interface ProductModalProps {
     lot: string;
     name: string;
     description: string;
-    image: string;
+    image?: string;
     quantity: number;
     categoryId: string;
     partnerId: string;
@@ -62,9 +63,9 @@ export default function ProductModal({
         <div className="space-y-4 text-sm">
           <div className="flex items-center gap-4">
             {product.image ? (
-              <img src={product.image} alt={product.name} className="h-14 w-14 rounded-lg object-cover border" />
+              <Image src={product.image} alt={product.name} className="h-14 w-14 rounded-lg object-cover border" />
             ) : (
-              <div className="h-14 w-14 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400"><Image /></div>
+              <div className="h-14 w-14 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400">....</div>
             )}
             <div>
               <div className="font-semibold text-base">{product.name}</div>

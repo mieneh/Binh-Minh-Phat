@@ -55,8 +55,9 @@ export default function ProfilePage() {
       await refreshUser();
       toast.success(res.message);
       setOpenEdit(false);
-    } catch (e: any) {
-      toast.error(e?.message || t(locale, 'updateProfileFailed'));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, 'updateProfileFailed'));
     } finally {
       setSubmitting(false);
     }
@@ -75,8 +76,9 @@ export default function ProfilePage() {
       await refreshUser();
       toast.success(res.message);
       setOpenPassword(false);
-    } catch (e: any) {
-      toast.error(e?.message || t(locale, 'changePasswordFailed'));
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      toast.error(message || t(locale, 'changePasswordFailed'));
     } finally {
       setSubmitting(false);
     }

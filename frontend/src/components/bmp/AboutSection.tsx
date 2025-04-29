@@ -63,12 +63,11 @@ export default function AboutSection() {
             </div>
           </div>
           <div className="order-1 md:order-2">
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-xl">
               <ImageWithFallback
                 src="https://res.cloudinary.com/company-garment/image/upload/v1766767577/congty.png"
                 alt="Manufacturing facility"
-                className="w-full h-96 object-cover"
-                loading="lazy"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/30 to-transparent"></div>
             </div>
