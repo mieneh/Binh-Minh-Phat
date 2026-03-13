@@ -21,7 +21,7 @@ export default function CareersSection() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await recruitmentService.getAll();
+        const res = await recruitmentService.getActive();
         setJobs(res.data || []);
       } finally {
         setLoading(false);

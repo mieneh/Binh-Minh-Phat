@@ -27,7 +27,7 @@ export default function CareersPage() {
     const [showApplyModal, setShowApplyModal] = useState(false);
 
     useEffect(() => {
-        recruitmentService.getActive().then((res) => {
+        recruitmentService.getAll().then((res) => {
             setJobs(res.data || []);
             setLoading(false);
         });

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { t } from '@/i18n';
 import { useParams } from 'next/navigation';
 
@@ -29,9 +30,10 @@ export function ConfirmModal({
 
   if (!open) return null;
 
-  return (
+ if (!open) return null;
+  return createPortal(
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-100 text-center">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-[400px] text-center">
         <h2 className="text-xl font-semibold mb-3">{t(locale, titleKey)}</h2>
         <p className="text-sm text-gray-600 mb-5">{t(locale, descKey)}</p>
         <div className="flex justify-center gap-4">
@@ -51,6 +53,7 @@ export function ConfirmModal({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

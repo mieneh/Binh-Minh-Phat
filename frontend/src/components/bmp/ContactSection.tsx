@@ -74,7 +74,7 @@ export default function ContactSection() {
     {
       icon: Mail,
       title: 'Email',
-      content: 'congtymayxnkbinhminhphat@gmail.com',
+      content: 'ketoanxuongmaybmp@gmail.com',
     },
     {
       icon: Clock,
